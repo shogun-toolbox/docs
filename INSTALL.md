@@ -87,7 +87,7 @@ See below for how to create the examples from the website locally.
 
 ##Generating examples
 All Shogun examples at our website are automatically generated code. You can
-generate them locally (needs cmake switch `-DBUILD_META_EXAMPLES=ON`)
+generate them (plus additional ones) locally (needs cmake switch `-DBUILD_META_EXAMPLES=ON`)
 
     $ make meta_examples
 
