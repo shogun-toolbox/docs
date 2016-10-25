@@ -74,9 +74,9 @@ The required packages (here debian/Ubuntu package names) for each interface are
    - `r-base-core`
  * Java
    - `oracle-java8-installer`, non-standard, e.g. `https://launchpad.net/~webupd8team/+archive/ubuntu/java`
-   - `jblas`, a third party library, `https://mikiobraun.github.io/jblas/`
+   - `jblas`, a standard third party library, `https://mikiobraun.github.io/jblas/`
  * Ruby
-   - `ruby ruby-dev`
+   - `ruby ruby-dev`, and `narray` a non-standard third party library, `http://masa16.github.io/narray/`, install with `gem install narray`
  * Lua
    - `lua5.1 liblua5.1-0-dev`
  * C-Sharp
