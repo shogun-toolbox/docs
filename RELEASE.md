@@ -27,3 +27,5 @@
 	- Added element-wise unary operators in linalg [Rahul De].
 	- Dropped parameter migration framework [Heiko Strathmann].
 	- Disabled Python integration tests by default [Sergey Lisitsyn, Heiko Strathmann].
+	
+[Release on GitHub](https://github.com/shogun-toolbox/shogun/releases/tag/shogun_4.1.0)
