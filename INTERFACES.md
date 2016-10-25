@@ -11,7 +11,7 @@ you installed Shogun to the default folder or installed it from a binary package
 All interfaces require the Shogun library to be visible to your system.
 If using a custom directory
 
-$ export LD_LIBRARY_PATH="path/to/libshogun.so:$LD_LIBRARY_PATH"
+    $ export LD_LIBRARY_PATH="path/to/libshogun.so:$LD_LIBRARY_PATH"
 
 The `libshogun.so` was either copied to `path/to/shogun-install/lib/` when
 running `make install`, but you can also make it point to the build directory
