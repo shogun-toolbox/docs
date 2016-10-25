@@ -1,21 +1,17 @@
-Running Shogun from the interfaces     {#interfaces}
+Running Shogun from the interfaces
 ==================================
 
-This document explains how to use Shogun from its different interfaces. We
-assume that installation (including the interfaces) was successful and all
-dependencies are installed.
-
-To get help installing Shogun and for example code for all interfaces, see our
-website.
+We assume that installation (including the interfaces) was successful and all
+dependencies are installed. See [doc/readme/INSTALL.md](https://github.com/shogun-toolbox/docs/blob/master/INTERFACES.md) and our website.
 
 Note that setting some the enviromental variables should not be necessary in case
-you installed Shogun to the default folder.
+you installed Shogun to the default folder or installed it from a binary package.
 
 ## The shared library
-All interfaces require the Shogun library to be visible to your system. Either
-`make install` to the default directory, or if using a custom directory
+All interfaces require the Shogun library to be visible to your system.
+If using a custom directory
 
-	$ export LD_LIBRARY_PATH="path/to/libshogun.so:$LD_LIBRARY_PATH"
+$ export LD_LIBRARY_PATH="path/to/libshogun.so:$LD_LIBRARY_PATH"
 
 The `libshogun.so` was either copied to `path/to/shogun-install/lib/` when
 running `make install`, but you can also make it point to the build directory
@@ -29,7 +25,7 @@ specific defails how to import and use Shogun in all interfaces, see the
 examples on our website.
 
 ### Native C++
-Compilation needs the Shogun headers path, i.e. the path where for example `shogun/base/init.h` is located. This is either in `path/to/src/shogun/` or in `path/to/shogun-install/include/shogun/` . Linking  with the `-lshogun` flag requires the LD_LIBRARY_PATH set up as described above.
+Compilation needs the Shogun headers path, i.e. the path where for example `shogun/base/init.h` is located. This is either in `path/to/src/shogun/` or in `path/to/shogun-install/include/shogun/` . Linking  with the `-lshogun` flag requires the `LD_LIBRARY_PATH` set up as described above.
 Compiling and linking code works with gcc as
 
     $ gcc path/to/native_example.cpp -o native_example -I/path/to/headers -lshogun
@@ -78,9 +74,9 @@ Running it:
     $ mono csharp_example
 
 ### Java
-This needs `shogun.jar` to be visible, which is either in `path/to/build/src/interfaces/java/` or in something similar to `path/to/shogun-install//share/java/` .
+This needs `shogun.jar` to be visible, which is either in `path/to/build/src/interfaces/java/` or in something similar to `path/to/shogun-install/share/java/` .
 In addition, the location of the external dependency `jblas.jar` is needed,
-usually in `/usr/share/java/` .
+usually in `/usr/share/java/`.
 
 Compiling code works with the java compiler and passing location of `shogun.jar`,
 `jblas.jar`, and the example itself in the class path
@@ -88,4 +84,17 @@ Compiling code works with the java compiler and passing location of `shogun.jar`
 					
 Running it again requires the above class path and some more options
 
-    $java -Xmx1024m -cp /path/to/jblas.jar:/path/to/shogun.jar:path/to/java_example.java -Djava.library.path=/path/to/shogun.jar java_example
+    $ java -Xmx1024m -cp /path/to/jblas.jar:/path/to/shogun.jar:path/to/java_example.java -Djava.library.path=/path/to/shogun.jar java_example
+    
+### Provided Examples
+Code for all interface examples on our website can be generated locally, see [doc/readme/INSTALL.md](https://github.com/shogun-toolbox/docs/blob/master/INTERFACES.md). As they load data files, they requires the `shogun-data` submodule to be checked out.
+
+All examples should be run in the respective folder they are located in, for example (assuming that all described variables are set)
+
+    $ cd /path/to/shogun-install/examples/meta/python/regression/
+    $ python linear_ridge_regression.py
+    
+Or, for a compiled language
+
+    $ cd /path/to/shogun-install/examples/meta/csharp/regression/
+    $ mono linear_ridge_regression.cs

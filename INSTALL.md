@@ -17,51 +17,41 @@ You need at least 1 Gigabytes free disk space. If you compile any interface, rou
 ##Basics
 Shogun uses [CMake](https://cmake.org/) for its build. The general workflow is
 
- * Download source code, or (here) clone the latest develop code. Potentially update submodules.
-```
-git clone https://github.com/shogun-toolbox/shogun.git
-git submodule update --init
-```
+Download source code, or (here) clone the latest develop code. Potentially update submodules. Change directory
+
+    $ git clone https://github.com/shogun-toolbox/shogun.git
+    $ git submodule update --init
+    $ cd shogun
     
- * Go to the repository root. For example
-```
-cd shogun
-```
+Create the build directory
+
+    $ mkdir build
     
- * Create the build directory
-```
-mkdir build
-```
-    
- * Configure cmake, from the build directory, passing the Shogun source root as argument.
+Configure cmake, from the build directory, passing the Shogun source root as argument.
 It is recommended to use any of CMake GUIs (e.g. replace `cmake ..` with `ccmake ..`),
 in particular if you feel unsure about possible parameters and configurations.
 Note that all cmake options read as `-DOPTION=VALUE`.
-```
-cd build
-cmake [options] ..
-```
+
+    $ cd build
+    $ cmake [options] ..
     
- * Compile
-```
-make
-```
+Compile
+
+    $ make
+
     
- * Install (prepend `sudo` if installing system wide)
-```
-make install
-```
+Install (prepend `sudo` if installing system wide). Done.
+
+    $ make install
 
 Sometimes you might need to clean up your build (e.g. in case of some major
 changes). First, try
-```
-make clean
-```
+
+    $ make clean
 
 If that does not help, try removing the build directory and starting from scratch afterwards
-```
-rm -rf build
-```
+
+    $ rm -rf build
 
 If you prefer to not run the `sudo make install` command system wide, you can
 either install Shogun to a custom location (`-DCMAKE_INSTALL_PREFIX=/custom/path`, defaults to `/usr/local`), or even skip `make install` at all.
@@ -71,8 +61,9 @@ see [doc/readme/INTERFACES.md](https://github.com/shogun-toolbox/docs/blob/maste
 ##Interfaces
 The native C++ interface is always included.
 The cmake options for building interfaces are `-DPythonModular -DOctaveModular -DRModular -DJavaModular -DRubyModular -DLuaModular -DCSharpModular` etc. For example, replace the cmake step above by
-
-    $ cmake -DPythonModular=ON ..
+```
+cmake -DPythonModular=ON [potentially more options] ..
+```
 
 The required packages (here debian/Ubuntu package names) for each interface are
  * Python
@@ -82,7 +73,7 @@ The required packages (here debian/Ubuntu package names) for each interface are
  * R
    - `r-base-core`
  * Java
-   - `oracle-java8-installer`, non-standard, e.g. `https://launchpad.net/~webupd8team/+archive/ubuntu`/java
+   - `oracle-java8-installer`, non-standard, e.g. `https://launchpad.net/~webupd8team/+archive/ubuntu/java`
    - `jblas`, a third party library, `https://mikiobraun.github.io/jblas/`
  * Ruby
    - `ruby ruby-dev`
@@ -96,16 +87,14 @@ See below for how to create the examples from the website locally.
 
 ##Generating examples
 All Shogun examples at our website are automatically generated code. You can
-generate them locally as
-```
-make meta_examples
-```
+generate them locally (needs cmake switch `-DBUILD_META_EXAMPLES=ON`)
 
-This requires [PLY for Python](https://pypi.python.org/pypi/ply), package `python-ply`. Both source code and executables (for C++ and all enabled compiled
-interface languages like Java, C-Sharp) are created in `build/examples/meta/` when running
+    $ make meta_examples
+
+This requires [PLY for Python](https://pypi.python.org/pypi/ply), package `python-ply`. Both source code and potential executables (C++, Java, C-Sharp) are created in `build/examples/meta/` when running
 `make`.
 
-See [doc/readme/EXAMPLES.md](https://github.com/shogun-toolbox/docs/blob/master/EXAMPLES.md) for details on the examples.
+See [doc/readme/INTERFACES.md](https://github.com/shogun-toolbox/docs/blob/master/INTERFACES.md) to run the generated examples and see [doc/readme/EXAMPLES.md](https://github.com/shogun-toolbox/docs/blob/master/EXAMPLES.md) for more details on their mechanics.
 
 ##Problems
 In case header files or libraries are not at standard locations one needs
