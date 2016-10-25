@@ -18,19 +18,51 @@ You need at least 1 Gigabytes free disk space. If you compile any interface, rou
 ##Basics
 Shogun uses [CMake](https://cmake.org/) for its build. The general workflow is
 
-0. Get Shogun source, or clone the latest develop code `git clone https://github.com/shogun-toolbox/shogun.git`. Potentially update submodules `git submodule update --init`
-1. go to the repository root.
-2. do $`mkdir build`.
-3. do `cmake [options] ..`. 
-4. do `make`.
-5. do `make install` (prepend `sudo` if installing system wide).
-
-It recommended to use any of CMake GUIs (e.g. replace `cmake ..` with `ccmake ..`),
+ * Download source code, or (here) clone the latest develop code. Potentially update submodules.
+```
+git clone https://github.com/shogun-toolbox/shogun.git
+git submodule update --init
+```
+    
+ * Go to the repository root. For example
+```
+cd shogun
+```
+    
+ * Create the build directory
+```
+mkdir build
+```
+    
+ * Configure cmake, from the build directory, passing the Shogun source root as argument.
+It is recommended to use any of CMake GUIs (e.g. replace `cmake ..` with `ccmake ..`),
 in particular if you feel unsure about possible parameters and configurations.
 Note that all cmake options read as `-DOPTION=VALUE`.
+```
+cd build
+cmake [options] ..
+```
+    
+ * Compile
+```
+make
+```
+    
+ * Install (prepend `sudo` if installing system wide)
+```
+make install
+```
 
-Sometimes you would need to clean up your build (e.g. in case of some major
-changes). The easiest way to do that is to remove the `build` directory created before.
+Sometimes you might need to clean up your build (e.g. in case of some major
+changes). First, try
+```
+make clean
+```
+
+If that does not help, try removing the build directory and starting from scratch afterwards
+```
+rm -rf build
+```
 
 If you prefer to not run the `sudo make install` command system wide, you can
 either install Shogun to a custom location (`-DCMAKE_INSTALL_PREFIX=/custom/path`, defaults to `/usr/local`), or even skip `make install` at all.
@@ -61,14 +93,16 @@ The required packages (here debian/Ubuntu package names) for each interface are
    - `mono-devel mono-gmcs cli-common-dev`
 
 To *use* the interfaces, in particular if not installing to the default system-wide location, see [doc/readme/INTERFACES.md](https://github.com/shogun-toolbox/docs/blob/master/INTERFACES.md).
+See below for how to create the examples from the website locally.
 
 ##Generating examples
 All Shogun examples at our website are automatically generated code. You can
 generate them locally as
+```
+make meta_examples
+```
 
-    $ make meta_examples
-
-This requires the `python-ply` package. Both source code and executables (for C++ and all enabled compiled
+This requires [PLY for Python](https://pypi.python.org/pypi/ply), package `python-ply`. Both source code and executables (for C++ and all enabled compiled
 interface languages like Java, C-Sharp) are created in `build/examples/meta/` when running
 `make`.
 
@@ -77,7 +111,7 @@ See [doc/readme/EXAMPLES.md](https://github.com/shogun-toolbox/docs/blob/master/
 ##Problems
 In case header files or libraries are not at standard locations one needs
 to manually adjust the libray and include paths, `-DCMAKE_INCLUDE_PATH=/my/include/path` and `-DCMAKE_LIBRARY_PATH=/my/library/path`.
-A good reference for that is [http://cmake.org/Wiki/CMake_Useful_Variables].
+A good reference for that is [CMake_Useful_Variables](http://cmake.org/Wiki/CMake_Useful_Variables).
 
 ## Got stuck? Found a bug? Need help?
 In case you have a problem building Shogun, please open an [issue on github](https://github.com/shogun-toolbox/shogun/issues) with your system details, *exact* commands used, and logs posted as a [gist](https://gist.github.com/).
