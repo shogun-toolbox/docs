@@ -94,7 +94,7 @@ All examples should be run in the respective folder they are located in, for exa
     $ cd /path/to/shogun-install/examples/meta/python/regression/
     $ python linear_ridge_regression.py
     
-Or, for a compiled language
+Or, for a compiled language with a manually compiled, not yet installed Shogun, running directly from the source tree
 
-    $ cd /path/to/shogun-install/examples/meta/csharp/regression/
+    $ cd /path/to/shogun-source/build/examples/meta/csharp/regression/
     $ mono linear_ridge_regression.cs
