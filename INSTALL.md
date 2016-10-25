@@ -1,72 +1,82 @@
-INSTALL   {#install}
+INSTALL
 =======
-This file explains how to build Shogun from the source-code. We recommend installing a binary package of Shogun, unless your system is not supported or you want to modify the source code. See our website for details Also see [QUICKSTART](https://github.com/shogun-toolbox/shogun/wiki/QUICKSTART) for a more compact version.
 
-##GENERAL
-Starting from the version 3.0 Shogun uses CMake to facilitate
-the building process. When using command line on Linux- and Unix-based
-systems with the `make` being available the building steps are:
-
-1. go to the shogun repository root
-2. do `mkdir build`
-3. do `cmake [options] ..` (or `ccmake ..` if available). It is very
-recommended to use any of CMake GUIs (such as ccmake) if you feel unsure
-about possible parameters and configurations.
-4. do `make` (and `sudo make install` if needed)
-
-In case you want to generate some IDE project (e.g. Eclipse CDT4 project)
-use the `-G generator-name` key. You may obtain possible generators with
-the `cmake --help` command. For example to generate Eclipse CDT4 project
-for Shogun use the `cmake -G "Eclipse CDT4 - Unix Makefiles"`.
-
-Sometimes you would need to clean up your build (e.g. in case of some major
-changes). The easiest way to do that is straightforward:
-just remove the `build` directory you created before.
-
-If you prefer to not run the `make install` command, you should
-instead include the shogun library in your path:
-
-`export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:path_to_shogun/src/shogun/`
-
-You might have to run `sudo ldconfig` to update your shared library cache. Note that the interfaces require additional variables to be set, see below and [INTERFACES](https://github.com/shogun-toolbox/shogun/wiki/INFERFACES).
+In case there are no binary packages for your system, or you want to modify it,
+you will need to build it from source.
 
 ##REQUIREMENTS
+The standard GNU/Linux tools and Python are minimal requirements to compile Shogun.
+To compile the interfaces, in addition to [swig](http://www.swig.org/) itself, you will need language specific development packages installed, see below.
 
-The standard linux utils like bash, grep, test, sed, cut, awk, ldd, uname gcc
-g++ and cat, python (debian package: python2.7) are required
-for the cmake to work. [CCache](https://ccache.samba.org/) will massively speed up the compilation process (enabled by default).
-To compile the interfaces, in addition to [SWIG](http://www.swig.org/) itself, you will need language specific development packages installed, see below.
+There is a larger number of optional requirements. The output of cmake output lists
+optional dependencies that were found and not found.
+If a particular Shogun class is unavailable, this is likely due to an unmet dependency.
+See our [docker configuration file](https://github.com/shogun-toolbox/shogun/blob/develop/configs/shogun/Dockerfile) for an example configuration used in our test builds.
 
-There is a larger number of optional requirements, detected through our build system. You can always check the cmake output to find out what was detected. If a particular Shogun class is unavailable, this is likely due to an unmet dependency.
+You need at least 1 Gigabytes free disk space. If you compile any interface, roughly 4 Gigabytes RAM are need. [CCache](https://ccache.samba.org/) will massively speed up the compilation process (enabled by default).
 
-##SPECIFIC BUILD INSTRUCTIONS FOR MODULAR INTERFACES
-The cmake targets are `-DPythonModular -DOctaveModular -DRModular -DJavaModular -DRubyModular -DLuaModular -DCSharpModular` etc. To compile for example the Python interface you need to
+##COMPILING
+Shogun uses CMake for its build. The general workflow is
 
-    $ mkdir build && cd build
+0. Get Shogun source, or clone the latest develop code `git clone https://github.com/shogun-toolbox/shogun.git`. Potentially update submodules `git submodule update --init`
+1. go to the repository root.
+2. do $`mkdir build`.
+3. do `cmake [options] ..`. 
+4. do `make`.
+5. do `make install` (prepend `sudo` if installing system wide).
+
+It recommended to use any of CMake GUIs (e.g. replace `cmake ..` with `ccmake ..`),
+in particular if you feel unsure about possible parameters and configurations.
+Note that all cmake options read as `-DOPTION=VALUE`.
+
+Sometimes you would need to clean up your build (e.g. in case of some major
+changes). The easiest way to do that is to remove the `build` directory created before.
+
+If you prefer to not run the `sudo make install` command system wide, you can
+either install Shogun to a custom location (`-DCMAKE_INSTALL_PREFIX=/custom/path`, defaults to `/usr/local`), or even skip `make install` at all.
+In both cases, it is necessary to set a number of system libraries for using Shogun,
+see [doc/readme/INTERFACES.md](https://github.com/shogun-toolbox/shogun/wiki/INFERFACES).
+
+##COMPILING INTERFACES
+The native C++ interface is always included.
+The cmake options for building interfaces are `-DPythonModular -DOctaveModular -DRModular -DJavaModular -DRubyModular -DLuaModular -DCSharpModular` etc. For example, replace the cmake step above by
+
     $ cmake -DPythonModular=ON ..
-    $ make
-    $ sudo make install
 
-Run Shogun examples, see the interface specific instructions at [INTERFACES](https://github.com/shogun-toolbox/shogun/wiki/INFERFACES)
+The required packages (here debian/Ubuntu package names) for each interface are
+ * Python
+   - `python-dev python-numpy`
+ * Octave
+   - `octave liboctave-dev`
+ * R
+   - `r-base-core`
+ * Java
+   - `oracle-java8-installer`, non-standard, e.g. `https://launchpad.net/~webupd8team/+archive/ubuntu`/java
+   - `jblas`, a third party library, `https://mikiobraun.github.io/jblas/`
+ * Ruby
+   - `ruby ruby-dev`
+ * Lua
+   - `lua5.1 liblua5.1-0-dev`
+ * C-Sharp
+   - `mono-devel mono-gmcs cli-common-dev`
 
-##SPECIAL FEATURES
+To *use* the interfaces, in particular if not installing to the default system-wide location, see [INTERFACES](https://github.com/shogun-toolbox/shogun/wiki/INFERFACES).
 
-To enable Multiple Kernel Learning with CPLEX(tm) just make sure cplex can
-be found in the PATH. If it is not found shogun will resort to GLPK (if found)
-for 1-norm MKL, p-norm MKL with p>1 will work nonetheless.
+##GENERATING EXAMPLES
+All Shogun examples at our website are automatically generated code. You can
+generate them locally as
 
-##MINIMUM REQUIREMENTS TO BUILD SHOGUN FROM SOURCE CODES
-You need at least 1 Gigabytes free disk space and 4 Gigabytes RAM to build Shogun from source codes.
+    $ make meta_examples
 
-The compiler will use a lot of RAM and your computer will be slow if you do not have enough RAM for the compiler.
+This requires the `python-ply` package. Both source code and executables (for C++ and all enabled compiled
+interface languages like Java, C-Sharp) are created in `build/examples/meta/` when running
+`make`.
 
-Again, consider using [ccache](https://ccache.samba.org/).
-
+See [doc/readme/EXAMPLES.md](https://github.com/shogun-toolbox/docs/blob/master/EXAMPLES.md) for details on the examples.
 
 ##PROBLEMS
 In case header files or libraries are not at standard locations one needs
-to manually adjust the libray/include paths. This can be done with
-`-DCMAKE_INCLUDE_PATH=/my/include/path` (for includes) and `-DCMAKE_LIBRARY_PATH=/my/library/path`.
-A good reference for that is http://cmake.org/Wiki/CMake_Useful_Variables .
+to manually adjust the libray and include paths, `-DCMAKE_INCLUDE_PATH=/my/include/path` and `-DCMAKE_LIBRARY_PATH=/my/library/path`.
+A good reference for that is [http://cmake.org/Wiki/CMake_Useful_Variables].
 
-In case you have a problem building Shogun, please open an issue on github with your system details, *exact* commands used, and logs posted as a [gist](https://gist.github.com/).
+In case you have a problem building Shogun, please open an [issue on github](https://github.com/shogun-toolbox/shogun/issues) with your system details, *exact* commands used, and logs posted as a [gist](https://gist.github.com/).
