@@ -1,5 +1,6 @@
-Compiling from source
-=====================
+==================
+Compiling manually
+==================
 
 In case none of the binary packages listed on our website work for your system, or you want to modify Shogun, you will need to build it from source.
 
@@ -34,7 +35,7 @@ changes). The easiest way to do that is to remove the `build` directory created 
 If you prefer to not run the `sudo make install` command system wide, you can
 either install Shogun to a custom location (`-DCMAKE_INSTALL_PREFIX=/custom/path`, defaults to `/usr/local`), or even skip `make install` at all.
 In both cases, it is necessary to set a number of system libraries for using Shogun,
-see [doc/readme/INTERFACES.md](https://github.com/shogun-toolbox/shogun/wiki/INFERFACES).
+see [doc/readme/INTERFACES.md](https://github.com/shogun-toolbox/docs/blob/master/INTERFACES.md).
 
 ##Interfaces
 The native C++ interface is always included.
@@ -59,7 +60,7 @@ The required packages (here debian/Ubuntu package names) for each interface are
  * C-Sharp
    - `mono-devel mono-gmcs cli-common-dev`
 
-To *use* the interfaces, in particular if not installing to the default system-wide location, see [INTERFACES](https://github.com/shogun-toolbox/shogun/wiki/INFERFACES).
+To *use* the interfaces, in particular if not installing to the default system-wide location, see [doc/readme/INTERFACES.md](https://github.com/shogun-toolbox/docs/blob/master/INTERFACES.md).
 
 ##Generating examples
 All Shogun examples at our website are automatically generated code. You can
