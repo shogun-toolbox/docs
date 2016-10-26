@@ -91,7 +91,7 @@ generate them (plus additional ones) locally (needs cmake switch `-DBUILD_META_E
 
     $ make meta_examples
 
-This requires [PLY for Python](https://pypi.python.org/pypi/ply), package `python-ply`. Both source code and potential executables (C++, Java, C-Sharp) are created in `build/examples/meta/` when running
+This requires [PLY for Python](https://pypi.python.org/pypi/ply), package `python-ply`, and [ctags](http://ctags.sourceforge.net/), package `ctags`. Both source code and potential executables (C++, Java, C-Sharp) are created in `build/examples/meta/` when running
 `make`.
 
 See [doc/readme/INTERFACES.md](https://github.com/shogun-toolbox/docs/blob/master/INTERFACES.md) to run the generated examples and see [doc/readme/EXAMPLES.md](https://github.com/shogun-toolbox/docs/blob/master/EXAMPLES.md) for more details on their mechanics.
