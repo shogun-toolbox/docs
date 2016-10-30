@@ -1,29 +1,16 @@
-* SHOGUN Release version 4.1.0 (libshogun 17.1, data 0.10, parameter 1)
-* This is a new feature and cleanup release:
+* SHOGUN Release version 5.0.0 (libshogun 17.2, data 0.11, parameter 1)
+
+* NOTE: This version contains a new CMake option USE_GPL_SHOGUN, which
+        when set to OFF will exclude all GPL codes from Shogun [Heiko Strathmann].
 * Features:
-	- Added GEMPLP for approximate inference to the structured output framework [Jiaolong Xu].
-	- Effeciency improvements of the FITC framework for GP inference (FITC_Laplce, FITC, VarDTC) [Wu Lin].
-	- Added optimisation of inducing variables in sparse GP inference [Wu Lin].
-	- Added optimisation methods for GP inference (Newton, Cholesky, LBFGS, ...) [Wu Lin].
-	- Added Automatic Relevance Determination (ARD) kernel functionality for variational GP inference [Wu Lin].
-	- Updated Notebook for variational GP inference [Wu Lin].
-	- New framework for stochastic optimisation (l1/2 loss, mirror descent, proximal gradients, adagrad, SVRG, RMSProp, adadelta, ...) [Wu Lin].
-	- New Shogun meta-language for automatically generating code listings in all target languages [Esben Sörig].
-	- Added periodic kernel [Esben Sörig].
-	- Add gradient output functionality in Neural Nets [Sanuj Sharma].
+    - Add new Shogun cookbook for documentation and testing across all 
+      target languages [Heiko Strathmann, Sergey Lisitsyn, Esben Sorig, Viktor Gal].
 * Bugfixes:
-	- Fixes for java_modular build using OpenJDK [Björn Esser].
-	- Catch uncaught exceptions in Neural Net code [Khaled Nasr].
-	- Fix build of modular interfaces with SWIG 3.0.5 on MacOSX [Björn Esser].
-	- Fix segfaults when calling delete[] twice on SGMatrix-instances [Björn Esser].
-	- Fix for building with full-hardening-(CXX|LD)FLAGS [Björn Esser].
-	- Patch SWIG to fix a problem with SWIG and Python >= 3.5 [Björn Esser].
-	- Add modshogun.rb: make sure narray is loaded before modshogun.so [Björn Esser].
-	- set working-dir properly when running R (#2654) [Björn Esser].
+	- Fix gTest segfaults with GCC >= 6.0.0 [Björn Esser].
+	- Make Java and CSharp install-dir configurable [Björn Esser].
+	- Autogenerate modshogun.rb with correct module-suffix [Björn Esser].
 * Cleanup, efficiency updates, and API Changes:
-	- Added GPU based dot-products to linalg [Rahul De].
-	- Added scale methods to linalg [Rahul De].
-	- Added element wise products to linalg [Rahul De].
-	- Added element-wise unary operators in linalg [Rahul De].
-	- Dropped parameter migration framework [Heiko Strathmann].
-	- Disabled Python integration tests by default [Sergey Lisitsyn, Heiko Strathmann].
+    - Make Eigen3 a hard requirement. Bundle if not found on system. [Heiko Strathmann]
+    - Drop ALGLIB (GPL) dependency in CStatistics and ship CDFLIB (public domain) instead [Heiko Strathmann]
+    - Drop p-value estimation in model-selection [Heiko Strathmann]
+    - Static interfaces have been removed [Viktor Gal]
