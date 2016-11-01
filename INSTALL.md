@@ -1,3 +1,72 @@
+Installing Shogun
+=================
+
+For certain systems, we offer pre-built packages of Shogun. This is the easiest
+way to start using it. For other cases, see how to compile it from source code below.
+
+##Ready-to-install packages
+
+###Ubuntu ppa
+We are working on integrating Shogun with Debian. In the meantime, we offer a
+[our prepackaged ppa](https://launchpad.net/~shogun-toolbox/+archive/ubuntu/stable).
+Add this to your system as
+    
+    $ sudo add-apt-repository ppa:shogun-toolbox/stable
+    $ sudo apt-get update
+    
+Then, install as
+
+    $ sudo apt-get install libshogun17
+
+In addition to the latest stable release, we offer [nightly builds](https://launchpad.net/~shogun-toolbox/+archive/ubuntu/nightly) of our
+development branch.
+
+###Fedora
+Shogun is part of [Fedora 25](https://admin.fedoraproject.org/pkgdb/package/rpms/shogun/).
+Install as
+
+    $ sudo dnf install shogun
+    
+    
+###Mac
+Shogun is part of [homebrew-science](https://github.com/Homebrew/homebrew-science). Install the latest stable version as
+
+    $ sudo brew install shogun
+
+###Windows
+Shogun natively runs under Windows using MSVC. We currently do not support a binary
+installer. If you are interesting in contributing, please contact us.
+
+##Docker images
+You can run Shogun in [our own cloud](cloud.shogun.ml) or set up your own using our
+[Docker images](https://hub.docker.com/r/shogun/shogun-dev/) as:
+
+    $ sudo docker pull shogun/shogun
+    $ sudo docker run -it shogun/shogun bash
+    
+We offer images for both the latest release and nightly development builds.
+    
+Sometimes mounting a local folder into the docker image is useful. 
+You can do this via passing an additional option
+
+```
+-v /your/local/folder:/same/folder/in/docker
+```
+
+See the Docker documentation for further details.
+
+
+##Building from source-code
+There are various ways to build Shogun from source-code.
+
+###Python pypi
+You can install from [pipy](https://pypi.python.org/pypi/shogun-ml/). There is limited control over options and it might take a long time as everything is done from scratch.
+
+    $ pip install shogun-ml
+    
+We do not reccomend this option and suggest to rather compile by hand as described below.
+
+
 Compiling manually
 ==================
 
@@ -12,19 +81,19 @@ optional dependencies that were found and not found.
 If a particular Shogun class is unavailable, this is likely due to an unmet dependency.
 See our [docker configuration file](https://github.com/shogun-toolbox/shogun/blob/develop/configs/shogun/Dockerfile) for an example configuration used in our test builds.
 
-You need at least 1 Gigabytes free disk space. If you compile any interface, roughly 4 Gigabytes RAM are need (we are working on reducing this). [CCache](https://ccache.samba.org/) will massively speed up the compilation process (enabled by default).
+You need at least 1GB free disk space. If you compile any interface, roughly 4 GB RAM are need (we are working on reducing this). [CCache](https://ccache.samba.org/) will massively speed up the compilation process and is enabled by default if installed.
 
 ##Basics
 Shogun uses [CMake](https://cmake.org/) for its build. The general workflow is
 
-Download source code, or (here) clone the latest develop code. Potentially update submodules. Change directory
+Download the latest [stable release source code](https://github.com/shogun-toolbox/shogun/releases/latest), or (as demonstrated here) clone the latest develop code. Potentially update submodules
 
     $ git clone https://github.com/shogun-toolbox/shogun.git
     $ git submodule update --init
-    $ cd shogun
     
-Create the build directory
+Create the build directory in the source tree root
 
+    $ cd shogun
     $ mkdir build
     
 Configure cmake, from the build directory, passing the Shogun source root as argument.
