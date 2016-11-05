@@ -1,12 +1,30 @@
-Installing Shogun
-=================
+#Installing Shogun
 
 For certain systems, we offer pre-built packages of Shogun. This is the easiest
-way to start using it. For other cases, see how to compile it from source code below.
+way to start using it. For other cases, we describe how to build Shogun from source code.
 
-##Ready-to-install packages
 
-###Ubuntu ppa
+# Quicklinks
+ * [Ready-to-install packages](#binaries)
+   - [Ubuntu](#ubuntu)
+   - [Fedora](#fedora)
+   - [MacOS](#mac)
+   - [Windows](#windows)
+ * [Docker images](#docker)
+ * [Integration with interface languages](#language)
+  - [Python](#pipy)
+ * [Compiling manually](#manual)
+   - [Requirements](#manual-requirements)
+   - [Basics](#manual-basics)
+   - [Interfaces](#manual-interfaces)
+   - [Examples](#manual-examples)
+   - [Problems](#manual-problems)
+   
+
+
+##Ready-to-install packages <a name="binaries"></a>
+
+###Ubuntu ppa <a name="ubuntu"></a>
 We are working on integrating Shogun with Debian. In the meantime, we offer a
 [our prepackaged ppa](https://launchpad.net/~shogun-toolbox/+archive/ubuntu/stable).
 Add this to your system as
@@ -21,23 +39,23 @@ Then, install as
 In addition to the latest stable release, we offer [nightly builds](https://launchpad.net/~shogun-toolbox/+archive/ubuntu/nightly) of our
 development branch.
 
-###Fedora
+###Fedora <a name="fedora"></a>
 Shogun is part of [Fedora 25](https://admin.fedoraproject.org/pkgdb/package/rpms/shogun/).
 Install as
 
     $ sudo dnf install shogun
     
     
-###Mac
+###Mac <a name="mac"></a>
 Shogun is part of [homebrew-science](https://github.com/Homebrew/homebrew-science). Install the latest stable version as
 
     $ sudo brew install shogun
 
-###Windows
-Shogun natively runs under Windows using MSVC. We currently do not support a binary
-installer. If you are interesting in contributing, please contact us.
+###Windows <a name="windows"></a>
+Shogun natively compiles under Windows using MSVC (experimental). We currently do not support a binary
+installer. If you are interesting in packaging, documenting, or contributing otherwise, please contact us.
 
-##Docker images
+##Docker images <a name="docker"></a>
 You can run Shogun in [our own cloud](cloud.shogun.ml) or set up your own using our
 [Docker images](https://hub.docker.com/r/shogun/shogun-dev/) as:
 
@@ -56,10 +74,10 @@ You can do this via passing an additional option
 See the Docker documentation for further details.
 
 
-##Building from source-code
-There are various ways to build Shogun from source-code.
+##Integration with interface language build systems <a name="language"></a>
+Shogun is can be automatically built from source from the following langauges.
 
-###Python pypi
+###Python pypi <a name="pypi"></a>
 You can install from [pipy](https://pypi.python.org/pypi/shogun-ml/). There is limited control over options and it might take a long time as everything is done from scratch.
 
     $ pip install shogun-ml
@@ -67,14 +85,13 @@ You can install from [pipy](https://pypi.python.org/pypi/shogun-ml/). There is l
 We do not reccomend this option and suggest to rather compile by hand as described below.
 
 
-Compiling manually
-==================
+#Compiling manually <a name="manual"></a>
 
 In case none of the binary packages listed on our website work for your system, or you want to modify Shogun, you will need to build it from source.
 
-##Requirements
+##Requirements <a name="manual-requirements"></a>
 The standard GNU/Linux tools and Python are minimal requirements to compile Shogun.
-To compile the interfaces, in addition to [swig](http://www.swig.org/) itself, you will need language specific development packages installed, see below.
+To compile the interfaces, in addition to [swig](http://www.swig.org/) itself, you will need language specific development packages installed, see [interfaces](#manual-interfaces) below.
 
 There is a larger number of optional requirements. The output of cmake output lists
 optional dependencies that were found and not found.
@@ -83,7 +100,7 @@ See our [docker configuration file](https://github.com/shogun-toolbox/shogun/blo
 
 You need at least 1GB free disk space. If you compile any interface, roughly 4 GB RAM are need (we are working on reducing this). [CCache](https://ccache.samba.org/) will massively speed up the compilation process and is enabled by default if installed.
 
-##Basics
+##Basics <a name="manual-basics"></a>
 Shogun uses [CMake](https://cmake.org/) for its build. The general workflow is
 
 Download the latest [stable release source code](https://github.com/shogun-toolbox/shogun/releases/latest), or (as demonstrated here) clone the latest develop code. Potentially update submodules
@@ -127,7 +144,7 @@ either install Shogun to a custom location (`-DCMAKE_INSTALL_PREFIX=/custom/path
 In both cases, it is necessary to set a number of system libraries for using Shogun,
 see [doc/readme/INTERFACES.md](https://github.com/shogun-toolbox/docs/blob/master/INTERFACES.md).
 
-##Interfaces
+##Interfaces <a name="manual-interfaces"></a>
 The native C++ interface is always included.
 The cmake options for building interfaces are `-DPythonModular -DOctaveModular -DRModular -DJavaModular -DRubyModular -DLuaModular -DCSharpModular` etc. For example, replace the cmake step above by
 ```
@@ -152,9 +169,9 @@ The required packages (here debian/Ubuntu package names) for each interface are
    - `mono-devel mono-gmcs cli-common-dev`
 
 To *use* the interfaces, in particular if not installing to the default system-wide location, see [doc/readme/INTERFACES.md](https://github.com/shogun-toolbox/docs/blob/master/INTERFACES.md).
-See below for how to create the examples from the website locally.
+See [examples](#manual-examples) below for how to create the examples from the website locally.
 
-##Generating examples
+##Generating examples <a name="manual-examples"></a>
 All Shogun examples at our website are automatically generated code. You can
 generate them (plus additional ones) locally (needs cmake switch `-DBUILD_META_EXAMPLES=ON`)
 
@@ -165,10 +182,9 @@ This requires [PLY for Python](https://pypi.python.org/pypi/ply), package `pytho
 
 See [doc/readme/INTERFACES.md](https://github.com/shogun-toolbox/docs/blob/master/INTERFACES.md) to run the generated examples and see [doc/readme/EXAMPLES.md](https://github.com/shogun-toolbox/docs/blob/master/EXAMPLES.md) for more details on their mechanics.
 
-##Problems
+##Problems? Got stuck? Found a bug? Help?  <a name="manual-problems"></a>
 In case header files or libraries are not at standard locations one needs
 to manually adjust the libray and include paths, `-DCMAKE_INCLUDE_PATH=/my/include/path` and `-DCMAKE_LIBRARY_PATH=/my/library/path`.
 A good reference for that is [CMake_Useful_Variables](http://cmake.org/Wiki/CMake_Useful_Variables).
 
-## Got stuck? Found a bug? Need help?
 In case you have a problem building Shogun, please open an [issue on github](https://github.com/shogun-toolbox/shogun/issues) with your system details, *exact* commands used, and logs posted as a [gist](https://gist.github.com/).
