@@ -2,7 +2,7 @@ Running Shogun from the interfaces
 ==================================
 
 We assume that installation (including the interfaces) was successful and all
-dependencies are installed. See [doc/readme/INSTALL.md](https://github.com/shogun-toolbox/docs/blob/master/INTERFACES.md) and our website.
+dependencies are installed. See [doc/readme/INSTALL.md](https://github.com/shogun-toolbox/docs/blob/master/INSTALL.md) and our website.
 
 Note that setting some the enviromental variables should not be necessary in case
 you installed Shogun to the default folder or installed it from a binary package.
