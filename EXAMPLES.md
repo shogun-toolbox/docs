@@ -1,86 +1,82 @@
-# The Shogun cookbook
+# API examples
 
-This is the Shogun cookbook, an easy to maintain collection of API examples.
-We use [Sphinx](http://www.sphinx-doc.org/en/stable/) and our own [meta-examples](https://github.com/shogun-toolbox/shogun/wiki/Example_Generation) to generate html pages with code snippets in all target languages. The latest version runs [here](http://shogun.ml/cookbook/latest/).
+Shogun comes with automatically generated API examples in all interface languages, see [our website](http://shogun.ml/examples). This readme describes their mechanics and how they are used for documentation. See also [DEVELOPING.md](DEVELOPING.md) for their role in testing.
 
-This is achieved by the following high-level steps:
+# Quicklinks
+ * [Automagically generated examples](#meta_examples)
+ * [HTML Cookbook](#cookbook)
 
-1. Use the automatically translated [API examples](https://github.com/shogun-toolbox/shogun/tree/develop/examples/meta/src/) in Shogun's meta example language. As these are part of our test process, they are guaranteed to be executable and errors (e.g. due to API changes) are easily caught.
+# Automatically generated examples <a name="meta_examples"></a>
+In Shogun, writing a single example files covers all interface languages at once, a subset can be seen on [our website](http://shogun.ml/examples).
 
-2. [Cookbook pages](https://github.com/shogun-toolbox/shogun/tree/develop/doc/cookbook/source/examples/) contain text that uses snippets from the above code listings. Those are automatically extracted based on a simple markup system.
+The listings that can be found in `examples/meta/src/*/*.sg` contain example code in a meta-language that is specific to Shogun. During the build, these are parsed and then translated with the (Python) machinery in `examples/meta/generator/*.py`. The output is a code listing for each target language defined in `examples/meta/src/generator/targets/*.json`. The process can be invoked with
 
-3. Automatically build a static html page with a global tab for each of Shogun's target languages. The user can toggle the shown language of the snippets without switching the page itself.
+    make meta_examples
+    
+This is only available when the cmake option `BUILD_META_EXAMPLES=ON` is set, and the Python requirements in `examples/meta/requirements.txt` are met.
+
+The C++ examples are always available, you can compile them using `make` or more specifically
+
+    make build_cpp_meta_examples
+
+and run them as from their folder straight-away (you might have to set environmental variables, see [INTERFACES.md](INTERFACES.md))
+
+    cd examples/meta/cpp/multiclass_classifier
+    ./knn
+    ./svm
+
+As the examples are part of the tests, you can easily run them as described in [DEVELOPING.md](DEVELOPING.md#testing). Alternatively, you see [INTERFACES.md](INTERFACES.md) on how to run them manually.
+
+For details, see `CMakeLists.txt` in `examples/meta/` for details, `generate.py` and `translate.py` in `examples/meta/generator/`.
+
+## Adding new examples
+It is extremely simple to add a new example: simple create another `*.sg` file. We are currently porting all existing Python examples in the deprecated folder `examples/undocumented/python_modular` to the new system -- a copy paste [entrance task](https://github.com/shogun-toolbox/shogun/issues/3555).
+
+If you porting an example is great, even better is when it comes with integration testing data of the numerical output, as described in [DEVELOPING.md](DEVELOPING.md#testing).
+
+Please take inspiration from the existing examples, especially those that were written as part of the [Google Summer of Code](https://github.com/shogun-toolbox/shogun/wiki/GSoC-follow-up-blog-posts) 2016. 
+
+Please don't break the build. Always compile and run at least the C++ version of the example.
+Check potential requirements of C++ guards that can make a class used in the example unavailable (`HAVE_LAPACK`, `HAVE_NLOPT`, `USE_GPL_SHOGUN`, etc); potentially add them [here](https://github.com/shogun-toolbox/shogun/blob/develop/cmake/FindMetaExamples.cmake).
+
+# Website rendering of examples: the API cookbook <a name="cookbook"></a>
+
+The [The Shogun API cookbook](http://shogun.ml/examples) is a web-based version that adds additional documentation to an existing example. The idea is that code snippets (rather than the full listing) from the automatically generated listings can be embedded in a markdown page that describes details, math, and references for the example. The pages are rendered with [our own plugin](https://github.com/shogun-toolbox/shogun/blob/develop/doc/cookbook/extensions/sgexample.py) for [Sphinx](http://www.sphinx-doc.org/).
 
 ## Adding a page
-To add an entry, only two files are needed (plus a test):
+To add an entry for an existing example, create a markdown `*.rst` file with matching filename and directory. E.g. for the example `examples/meta/src/multiclass_classifier/knn.sg`, this would be
 
- * A meta language example, e.g. ```shogun/examples/meta/src/classifier/knn.sg``` (which during the build process is automatically translated to ```build/examples/python/classifier/knn.py```, ```build/examples/R/classifier/knn.R```, etc). The file should contain a number of snippet start and end markers, see for example [knn.sg](https://github.com/shogun-toolbox/shogun/blob/develop/examples/meta/src/classifier/knn.sg).
+    touch doc/cookbook/source/examples/multiclass_classifier/knn.rst
 
- * A Sphinx markdown file with matching filename and directory, e.g. ```shogun/doc/cookbook/source/examples/classifier/knn.rst```. This file contains a description of the API example and references to code snippets. The point is to *not* show the full file listing but only a subset. The file should furthermore contain basic math in the form of LaTeX, important references (wikipedia, scientific paper references using BibTeX, etc), and links to the involved Shogun class documentation, github issues, etc. We use Sphinx tags to make this easy, see for example [knn.rst](https://github.com/shogun-toolbox/shogun/blob/develop/doc/cookbook/source/examples/classifier/knn.rst).
+Edit the file so that it contains details on API example and references to code snippets. The point is to **not** show the full file listing but only snippets. The file should furthermore contain basic math in the form of LaTeX, important references (wikipedia, scientific paper references using BibTeX, other pages, etc). Take inspiration from existing pages.
 
- * All added meta examples are part of Shogun's test build (execution only). Run `make test` in `build/examples/meta`. All numerical output (vector, matrix, real) is serialized to file at the end of each example.
+If you are adding a new topic (like "kernels" or "regression") you will also need to update the `index.rst` file in `doc/cookbook/source/`. Follow the template of the existing cookbooks.
 
- * All added meta examples are part of Shogun's integration testing. That is, the numerical output of the step above is compared to a reference file. Run `make test` in `build/tests/meta`. Note that you need to execute the examples first (above step). Running `make test` in `build` itself runs them in the right order.
- In the meta example, you might have to [put results in a variable](https://github.com/shogun-toolbox/shogun/blob/develop/examples/meta/src/classifier/knn.sg#L28) if they are hidden within a Shogun object. Have a look at the generated listings to see how. When you added a new meta example, you can easily add a generated file to the [data](https://github.com/shogun-toolbox/shogun-data/tree/master/testsuite/meta/) repository (after executing the test of cource). For now, use the results generated by the `cpp` examples in `build/tests/meta/generated_results/cpp/`. Once added, all future results of a test file will be compared to this reference file. Note as opposed to the old integration testing system, only *numerical* outputs are compared. Please keep the example output files small (use toy example data)
+### Tips for cookbook pages
 
- * If you are adding a new topic (like "kernels" or "regression") you will also need to update the ```index.rst``` file in ```doc/cookbook/source/```. Follow the template of the existing cookbooks and specify a `maxdepth` of 1. No sub-sub-topics are allowed, please keep the index shallow.
-
-## Guidelines
-
- * Please don't break the build. Check the requirements (`LAPACK`, `NLOPT`, etc) for the meta example and potentially add them [here](https://github.com/shogun-toolbox/shogun/blob/develop/cmake/FindMetaExamples.cmake)
- * Orient yourself as close as possible on the above reference example. Include the same elements as used thereim.
+ * Orient yourself closely to reference examples, especially those written during the [Google Summer of Code](https://github.com/shogun-toolbox/shogun/wiki/GSoC-follow-up-blog-posts) 2016. 
  * Write proper English. Pay attention to grammar, spelling, and punctuation.
- * Keep the example *specific*. Only talk about the particular algorithm and its interface. General concepts (for example 'supervised learning') should go to overview pages.
- * Keep the example *local*. Only show code snippets that illustrate API usage, avoid showing the full listing.
- * Let the *code* speak for itself. Don't put useless statements that are clear from the code. Don't say things like "we call the `train` method", but rather "we train the model via". This way the `.rst` file is also invariant to API changes and we only need to update the `.sg` file.
- * *Think* about which interface you want to show. I.e. when illustrating `KNN`, use `apply_multiclass` rather than just `apply`. The former gives `CMulticlassLabels` while the latter only gives `CLabels`, which is a problem in non-typesafe languages where we can't cast in a simple way.
-
-## Some useful tips
-
+ * Keep the example **specific**. Only talk about the particular algorithm and its interface, avoid general concepts (such as 'supervised learning').
+ * Keep the example **local**. Only show code snippets that illustrate API usage, avoid showing the full listing.
+ * Let the **code** speak for itself. Avoid useless statements that are clear from the code. Avoid statements like "we call the `train` method", but rather "we train the model via". This way the `.rst` file is also invariant to API changes.
  * All external weblinks are automatically checked and warnings are given if corrupt, but please ensure you do not put in dead links.
- * If you want to add a BibTeX reference, add it to [references.bib](https://github.com/shogun-toolbox/shogun/blob/develop/doc/cookbook/source/references.bib). Please do only use properly formated entries.
+ * If you want to add a BibTeX reference, add it to [references.bib](https://github.com/shogun-toolbox/shogun/blob/develop/doc/cookbook/source/references.bib). Please do only use properly formated entries, follow the existing formatting.
  * If you need a custom LaTeX operator, simply add it to [mathconf.js](https://github.com/shogun-toolbox/shogun/blob/develop/doc/cookbook/source/static/mathconf.js)
- * It is very easy to re-structure the main page, or to put in general overview pages (i.e. a general description of the Classification interface of Shogun). Feel free to do so.
 
-### Where to start
-Our [Python examples](https://github.com/shogun-toolbox/shogun/tree/develop/examples/undocumented/python_modular) are most complete. Translate any example into the meta language (remove it afterwards, the meta examples are part of our tests), and add the corresponding cookbook page.
+## Rendering locally
+In addition to the latest release [here](http://shogun.ml/examples), we automatically upload the development version of the cookbook, see [here](http://shogun.ml/examples/nightly/index.html).
 
+Furthermore, if you send a PR, our [buildbot](http://buildbot.shogun-toolbox.org/builders/cookbook%20-%20PR) will automatically upload a preview of the cookbooks to a temporary location. This is to make our life easier when reviewing the PR.
 
-### Render locally
-We automatically upload the cookbook to our webserver in the [PR build on buildbot](http://buildbot.shogun-toolbox.org/builders/deb1%20-%20libshogun%20-%20PR), where you can also find a html preview. However, you should have a look at your page before you send a pull request.
+To make our life even more easy, you should look at the cookbook before sending a PR.
+You can render it with
 
-This can be done as running
+    make cookbook
 
-```
-cd path/to/shogun/
-mkdir build && cd build
-cmake ..
-make cookbook
-```
+which is also part of `make doc`. The target might not be available if the requirements in `doc/cookbook/requirements.txt` are not satisfied (in particular Sphinx), or if the meta examples are disabled.
 
-which is also part of ```make doc```. Note that the meta examples need to be enabled an sphinx needs to be installed, otherwise the ```cookbook``` target is not available. See dependencies below.
+After the cookbook has been rendered, you can view it for example running
+    
+    python -m SimpleHTTPServer
 
-```
-pip install sphinx ply sphinxcontrib-bibtex sphinx_bootstrap_theme
-```
-
-This generates a ```doc/cookbook/html``` folder in your build folder. To see the results, run
-
-```
-cd 
-python -m SimpleHTTPServer
-```
-
-in that directory and then open your browser at ```localhost:8000```.
-
-
-## Python requirements
-The cookbook is automatically built if these dependencies are met:
- * `cmake` switch `-DBUILD_META_EXAMPLES`
- * [sphinx](http://www.sphinx-doc.org/)
- * [python-ply](http://www.dabeaz.com/ply/)
- * [sphinx_bootstrap_theme](https://github.com/ryan-roemer/sphinx-bootstrap-theme)
-
-In addition this python module needs to be installed to enable bibtex citations.
- * [sphinxcontrib-bibtex](https://sphinxcontrib-bibtex.readthedocs.org/)
-
+in the `build/doc/cookbook/html` directory, and then open your browser at `localhost:8000`.
