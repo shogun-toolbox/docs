@@ -35,7 +35,7 @@ We use the [git flow](https://guides.github.com/introduction/flow/) workflow. Th
 
         git branch feature/BRANCH_NAME
 
-5. Your code here: Fix bug or add feature.
+5. Your code here: Fix bug or add feature. If you add something, or fix something, mention it in the `NEWS` file.
 6. **Make sure (!)** that locally, your code **compiles**, it is **[tested](#testing)**, it complies to the code style described on the wiki.
 
         make && make test
@@ -126,12 +126,12 @@ The option `--leak-check=full` for valgrind might be useful. In addition to manu
     ctest -D ExperimentalMemCheck -R unit-GaussianProcessRegression
 
 #### Adding tests
-We aim to write clear, minimal, yet exhaustive tests of basic building blocks in Shogun. Whenever you send us C++ code, we will ask you for a unit test for it. We do test numerical results as compared to reference implementations (e.g. in Python), as well as corner cases, consistency etc.
+We aim to write clear, minimal, yet exhaustive tests of basic building blocks in Shogun. Whenever you send us C++ code, we will ask you for a unit test for it. We do test numerical results as compared to reference implementations (e.g. in Python), as well as corner cases, consistency etc. Read on [test driven development](https://en.wikipedia.org/wiki/Test-driven_development), and search the web for tips on unit tests, e.g. [googletest's tips](https://github.com/google/googletest/blob/master/googletest/docs/Primer.md).
 
 Take inspiration from existing tests when writing new ones. Please structure them well.
 
 ## API example tests
-Make sure to read [INTERFACES.md](INTERFACES.md) and [EXAMPLES.md](EXAMPLES.md) to understand how API examples are generated.
+Make sure to read [INTERFACES.md](INTERFACES.md) and [EXAMPLES.md](EXAMPLES.md) to understand how API examples are generated, you will need the cmake switch `-DBUILD_META_EXAMPLES=ON`.
 Every API example is used for two tests: simple execution and continuous integration testing of results. These two tests are executed for every enabled interface language.
 
 Note that code for all interface examples needs to be generated as part of `make`, or using
@@ -148,6 +148,7 @@ Check the `CMakeLists.txt` in `examples/meta/*` for all such make targets.
 ### Simple execution.
 These tests are to make sure the code is executable, and to generate results for integration testing. These can be executed with `ctest` as described above, e.g.
 
+    ctest -R generated*
     ctest -R generated_cpp-binary_classifier-kernel_svm -V
 
 You can also execute the examples manually as described in [INTERFACES.md](INTERFACES.md).
@@ -166,6 +167,7 @@ The reference results are stored in the `data` git submodule, more precisely in 
 
 Again `ctest` can be used,
 
+    ctest -R integration_meta_*
     ctest -R integration_meta_cpp-binary_classifier-kernel_svm
     ctest -R integration_meta_python-binary_classifier-kernel_svm
 
