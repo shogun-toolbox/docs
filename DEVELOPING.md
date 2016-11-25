@@ -12,8 +12,8 @@ If you feel that this readme is missing something, please send a patch! :)
 # Quicklinks
  * [Shogun git development cycle](#devcycle)
  * [Testing](#testing)
- * [CMake (build process) tips](#cmake)
  * [Buildfarm](#buildfarm)
+ * [CMake (build process) tips](#cmake)
  * [API documentation](#api)
 
 # Shogun git development cycle <a name="devcycle"></a>
