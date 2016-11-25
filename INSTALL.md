@@ -101,7 +101,7 @@ See our [docker configuration file](https://github.com/shogun-toolbox/shogun/blo
 You need at least 1GB free disk space. If you compile any interface, roughly 4 GB RAM are need (we are working on reducing this). [CCache](https://ccache.samba.org/) will massively speed up the compilation process and is enabled by default if installed.
 
 ##Basics <a name="manual-basics"></a>
-Shogun uses [CMake](https://cmake.org/) for its build. The general workflow is
+Shogun uses [CMake](https://cmake.org/) for its build. The general workflow is now explained. For further details on testing etc, see [DEVELOPING.md](DEVELOPING.md).
 
 Download the latest [stable release source code](https://github.com/shogun-toolbox/shogun/releases/latest), or (as demonstrated here) clone the latest develop code. Potentially update submodules
 
@@ -142,7 +142,7 @@ If that does not help, try removing the build directory and starting from scratc
 If you prefer to not run the `sudo make install` command system wide, you can
 either install Shogun to a custom location (`-DCMAKE_INSTALL_PREFIX=/custom/path`, defaults to `/usr/local`), or even skip `make install` at all.
 In both cases, it is necessary to set a number of system libraries for using Shogun,
-see [doc/readme/INTERFACES.md](https://github.com/shogun-toolbox/docs/blob/master/INTERFACES.md).
+see [INTERFACES.md](INTERFACES.md).
 
 ##Interfaces <a name="manual-interfaces"></a>
 The native C++ interface is always included.
@@ -168,7 +168,7 @@ The required packages (here debian/Ubuntu package names) for each interface are
  * C-Sharp
    - `mono-devel mono-gmcs cli-common-dev`
 
-To *use* the interfaces, in particular if not installing to the default system-wide location, see [doc/readme/INTERFACES.md](https://github.com/shogun-toolbox/docs/blob/master/INTERFACES.md).
+To *use* the interfaces, in particular if not installing to the default system-wide location, see [INTERFACES.md](INTERFACES.md).
 See [examples](#manual-examples) below for how to create the examples from the website locally.
 
 ##Generating examples <a name="manual-examples"></a>
@@ -180,11 +180,8 @@ generate them (plus additional ones) locally (needs cmake switch `-DBUILD_META_E
 This requires [PLY for Python](https://pypi.python.org/pypi/ply), package `python-ply`, and [ctags](http://ctags.sourceforge.net/), package `ctags`. Both source code and potential executables (C++, Java, C-Sharp) are created in `build/examples/meta/` when running
 `make`.
 
-See [doc/readme/INTERFACES.md](https://github.com/shogun-toolbox/docs/blob/master/INTERFACES.md) to run the generated examples and see [doc/readme/EXAMPLES.md](https://github.com/shogun-toolbox/docs/blob/master/EXAMPLES.md) for more details on their mechanics.
+See [INTERFACES.md](INTERFACES.md) to run the generated examples and see [EXAMPLES.md](EXAMPLES.md) for more details on their mechanics. See [DEVELOPING.md](DEVELOPING.md) for how the examples are used as tests.
 
 ##Problems? Got stuck? Found a bug? Help?  <a name="manual-problems"></a>
-In case header files or libraries are not at standard locations one needs
-to manually adjust the libray and include paths, `-DCMAKE_INCLUDE_PATH=/my/include/path` and `-DCMAKE_LIBRARY_PATH=/my/library/path`.
-A good reference for that is [CMake_Useful_Variables](http://cmake.org/Wiki/CMake_Useful_Variables).
 
 In case you have a problem building Shogun, please open an [issue on github](https://github.com/shogun-toolbox/shogun/issues) with your system details, *exact* commands used, and logs posted as a [gist](https://gist.github.com/).

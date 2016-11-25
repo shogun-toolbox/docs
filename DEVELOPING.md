@@ -36,7 +36,7 @@ We use the [git flow](https://guides.github.com/introduction/flow/) workflow. Th
         git branch feature/BRANCH_NAME
 
 5. Your code here: Fix bug or add feature.
-6. **Make sure (!)** that locally, your code **compiles**, it is **[tested](#testing)**, it complies to the [code style](#code-style).
+6. **Make sure (!)** that locally, your code **compiles**, it is **[tested](#testing)**, it complies to the code style described on the wiki.
 
         make && make test
         
@@ -217,7 +217,7 @@ This service builds and tests Shogun in a large number of different configuratio
 After one of your PR is merged, check the status of the buildbot for a while. The [waterfall](http://buildbot.shogun-toolbox.org/waterfall) view is most useful. Again, check the logs if there are problems.
 
 # CMake tips <a name="cmake"></a>
-CMake is a beast. Make sure to read the [docs](https://cmake.org/documentation/).
+CMake is a beast. Make sure to read the [docs](https://cmake.org/documentation/) and [CMake_Useful_Variables](http://cmake.org/Wiki/CMake_Useful_Variables).
 Make sure to understand the concept of [out of source builds](https://cmake.org/Wiki/CMake_FAQ#Out-of-source_build_trees). Here are some tips on common options that are useful
 
 Options for developers (debugging symbols on, optimization off, etc.):
@@ -259,6 +259,8 @@ For example:
 
     cmake -DPYTHON_INCLUDE_DIR=/usr/include/python3.3 -DPYTHON_EXECUTABLE:FILEPATH=/usr/bin/python3 -DPYTHON_PACKAGES_PATH=/usr/local/lib/python3.3/dist-packages -DPythonModular=ON ..
 
+In case header files or libraries are not at standard locations one needs
+to manually adjust the libray and include paths, `-DCMAKE_INCLUDE_PATH=/my/include/path` and `-DCMAKE_LIBRARY_PATH=/my/library/path`.
 
 # API documentation <a name="api"></a>
 Shogun uses [doxygen](http://www.stack.nl/~dimitri/doxygen/) for its [API documentation](shogun.ml/api).
