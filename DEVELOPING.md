@@ -30,6 +30,8 @@ We use the [git flow](https://guides.github.com/introduction/flow/) workflow. Th
         git branch develop
         git checkout develop
         git pull --rebase upstream develop
+   
+   The steps until here only need to be executed once, with the exception being the last command: rebasing against the development branch. You will need to rebase everytime when the develop branch is updated.
 
 4. Create a feature branch (from develop)
 
@@ -66,7 +68,7 @@ We use the [git flow](https://guides.github.com/introduction/flow/) workflow. Th
         
     If you squashed or amended commits after you had pushed already, you might be required to force push via using the `git push -f` option **with care**.
 
-10. Send a [pull request](https://help.github.com/articles/about-pull-requests/) (PR) via GitHub
+10. Send a [pull request](https://help.github.com/articles/about-pull-requests/) (PR) via GitHub. As described above, you can always **update** a pull request using the the `git push -f` option. Please **do not** close and send new ones instead, always update.
 
 11. Once the PR is merged, keep an eye on the [buildfarm](#buildfarm) to see whether your patch broke something.
 
