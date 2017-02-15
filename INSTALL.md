@@ -54,7 +54,7 @@ Shogun is part of [homebrew-science](https://github.com/Homebrew/homebrew-scienc
 
 ###Windows <a name="windows"></a>
 Shogun natively compiles under Windows using MSVC (experimental). We currently do not support a binary
-installer. If you are interesting in packaging, documenting, or contributing otherwise, please contact us.
+installer. If you are interested in packaging, documenting, or contributing otherwise, please contact us.
 
 ##Docker images <a name="docker"></a>
 You can run Shogun in [our own cloud](cloud.shogun.ml) or set up your own using our
