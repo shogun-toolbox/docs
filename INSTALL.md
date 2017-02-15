@@ -25,8 +25,9 @@ way to start using it. For other cases, we describe how to build Shogun from sou
 ##Ready-to-install packages <a name="binaries"></a>
 
 ###Ubuntu ppa <a name="ubuntu"></a>
-We are working on integrating Shogun with Debian. In the meantime, we offer a
-[our prepackaged ppa](https://launchpad.net/~shogun-toolbox/+archive/ubuntu/stable).
+We are working on integrating Shogun with Debian/Ubuntu. In the meantime, we offer a
+[prepackaged ppa](https://launchpad.net/~shogun-toolbox/+archive/ubuntu/stable).
+These currently do contain the C++ library and Python bindings.
 Add this to your system as
     
     $ sudo add-apt-repository ppa:shogun-toolbox/stable
