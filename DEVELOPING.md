@@ -107,11 +107,11 @@ These are based on the [googletest](https://github.com/google/googletest) framew
 
 You can execute single tests via `ctest`, or via directly executing the unit test binary and passing it a filter, which gives a more grained control over which sub-tests are executed
 
-    ./tests/unit/shogun-unit-test --gtest_filter=GaussianProcessRegression.apply_*
+    ./bin/shogun-unit-test --gtest_filter=GaussianProcessRegression.apply_*
 
 Note that wildcards are allowed. Running single sub-tests is sometimes useful (i.e. for bug hunting)
 
-    ./shogun-unit-test --gtest_filter=GaussianProcessRegression.apply_apply_regression
+    ./bin/shogun-unit-test --gtest_filter=GaussianProcessRegression.apply_apply_regression
 
 ### Debugging and Memory leaks
 **All your C++ code and unit tests must be checked to not leak memory!**
