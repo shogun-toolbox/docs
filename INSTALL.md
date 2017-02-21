@@ -37,6 +37,10 @@ Then, install as
 
     $ sudo apt-get install libshogun17
 
+The Python (2) bindings can be installed as
+
+    $ sudo apt-get install python-shogun
+
 In addition to the latest stable release, we offer [nightly builds](https://launchpad.net/~shogun-toolbox/+archive/ubuntu/nightly) of our
 development branch.
 
@@ -53,7 +57,7 @@ Shogun is part of [homebrew-science](https://github.com/Homebrew/homebrew-scienc
     $ sudo brew install shogun
 
 ###Windows <a name="windows"></a>
-Shogun natively compiles under Windows using MSVC (experimental). We currently do not support a binary
+Shogun natively compiles under Windows using MSVC, see the [CI build](https://ci.appveyor.com/project/vigsterkr/shogun). We currently do not support a binary
 installer. If you are interested in packaging, documenting, or contributing otherwise, please contact us.
 
 ##Docker images <a name="docker"></a>
