@@ -9,12 +9,16 @@ you installed Shogun to the default folder or installed it from a binary package
 
 ## The shared library
 All interfaces require the Shogun library to be visible to your system.
-If using a custom directory
+You can prepend the `libshogun.*` to an environmental variable. On Linux, this is done with
 
     $ export LD_LIBRARY_PATH="path/to/libshogun.so:$LD_LIBRARY_PATH"
 
-The `libshogun.so` was either copied to `path/to/shogun-install/lib/` when
-running `make install`, but you can also make it point to the build directory
+On MacOS
+
+    $ export DYLD_LIBRARY_PATH="path/to/libshogun.so:$DYLD_LIBRARY_PATH"
+
+Note that the `libshogun.*` was either copied to `path/to/shogun-install/lib/` when
+running `make install`. You can also make it point to the build directory
  `path/to/build/src/shogun/` to make it available after a successful `make`.
 All subsequent settings can be set to the build dir or the installation dir.
 
@@ -25,10 +29,10 @@ specific defails how to import and use Shogun in all interfaces, see the
 examples on our website.
 
 ### Native C++
-Compilation needs the Shogun headers path, i.e. the path where for example `shogun/base/init.h` is located. This is either in `path/to/src/shogun/` or in `path/to/shogun-install/include/shogun/` . Linking  with the `-lshogun` flag requires the `LD_LIBRARY_PATH` set up as described above.
-Compiling and linking code works with gcc as
+Make sure you read up on how to compile C/C++ code. Compilation requires the Shogun headers path, i.e. the path where for example `shogun/base/init.h` is located. This is either in `path/to/src/shogun/` or in `path/to/shogun-install/include/shogun/` and is specified  via the `-I` flag. Linking requires the `-lshogun` flag, which either needs the `LD_LIBRARY_PATH` or `DYLD_LIBRARY_PATH` set up as described above, or preferably passed via the `-L` flag
+Compiling and linking code with `gcc` works as
 
-    $ gcc path/to/native_example.cpp -o native_example -I/path/to/headers -lshogun
+    $ gcc path/to/native_example.cpp -o native_example -I/path/to/headers -lshogun -L/path/to/libshogun.*
 
 Running it:
 
