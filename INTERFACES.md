@@ -9,7 +9,7 @@ you installed Shogun to the default folder or installed it from a binary package
 
 ## The shared library
 All interfaces require the Shogun library to be visible to your system.
-You can prepend the *location* (!=path of the file itself) of `libshogun.*` to an environmental variable. On Linux, this is done with
+You can prepend the *folder* (!=full filename) of `libshogun.*` to an environmental variable. On Linux, this is done with
 
     $ export LD_LIBRARY_PATH="path/to/libshogun.so:$LD_LIBRARY_PATH"
 
