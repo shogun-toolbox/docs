@@ -242,7 +242,7 @@ If eigen3 or json-c are missing use the following to download and compile these 
 
 Specify a different swig executable:
 
-    cmake -DSWIG_EXECUTABLE=/usr/bin/swig2.0
+    cmake -DSWIG_EXECUTABLE=/usr/bin/swig_custom
 
 To specify a different compiler, see [CMake FAQ, "How do I use a different compiler?"](http://www.cmake.org/Wiki/CMake_FAQ#How_do_I_use_a_different_compiler.3F).
 You might have to delete the build directory or clear the cmake cache otherwise for this to work.
