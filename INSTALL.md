@@ -7,6 +7,7 @@ way to start using it. For other cases, we describe how to build Shogun from sou
 # Quicklinks
  * [Ready-to-install packages](#binaries)
    - [Ubuntu](#ubuntu)
+   - [Debian](#debian)
    - [Fedora](#fedora)
    - [MacOS](#mac)
    - [Windows](#windows)
@@ -43,6 +44,23 @@ The Python (2) bindings can be installed as
 
 In addition to the latest stable release, we offer [nightly builds](https://launchpad.net/~shogun-toolbox/+archive/ubuntu/nightly) of our
 development branch.
+
+###Debian <a name="debian"></a>
+Latest packages for Debian jessie are available in our own repository at
+[http://apt.shogun.ml](http://apt.shogun.ml). We provide both the stable
+and nightly packages, currenlty only for amd64 architecture.
+In order to add the stable packages to your system, simply run the following commands
+
+    $ sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 3DD2174ACAB30365
+    $ echo "deb http://apt.shogun.ml/ jessie main" | sudo tee /etc/apt/sources.list.d/shogun-toolbox.list  > /dev/null
+    $ sudo apt-get update
+
+After this just simply install the shogun library
+
+    $ sudo apt-get install libshogun17
+
+The nightly packages are available in the `nightly` component, i.e.
+`deb http://apt.shogun.ml/ jessie nightly`
 
 ###Fedora <a name="fedora"></a>
 Shogun is part of [Fedora 25](https://admin.fedoraproject.org/pkgdb/package/rpms/shogun/).
