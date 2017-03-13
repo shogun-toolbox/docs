@@ -75,8 +75,27 @@ Shogun is part of [homebrew-science](https://github.com/Homebrew/homebrew-scienc
     $ sudo brew install shogun
 
 ###Windows <a name="windows"></a>
-Shogun natively compiles under Windows using MSVC, see the [CI build](https://ci.appveyor.com/project/vigsterkr/shogun). We currently do not support a binary
-installer. If you are interested in packaging, documenting, or contributing otherwise, please contact us.
+We currently do not support a Shogun binary on Windows platform. Shogun natively compiles under Windows using MSVC. It is recommended to use " Visual Studio 14 2015 " or " MSBuild " to build Shogun which both have good support to C++11. 
+
+Run CMD as administrator with the following commands：
+```
+git clone https://github.com/shogun-toolbox/shogun.git C:\projects\shogun 
+git submodule -q update --init
+```
+Move to the source tree root and create the build directory.
+```
+cd C:\projects\shogun
+md build && cd build
+```
+You need [CMake](https://cmake.org/download/) to build Shogun. If you need Shogun examples in build, please see [Examples](#manual-examples).
+```
+cmake -G"Visual Studio 14 2015 Win64" -DCMAKE_BUILD_TYPE=Release -DBUILD_META_EXAMPLES=OFF -DENABLE_TESTING=ON ..
+```
+Compile
+```
+msbuild "C:\projects\shogun\build\shogun.sln" /verbosity:minimal /t:Clean /p:Configuration=Release /p:Platform=x64
+```
+Note: If you use `/m` in msbuild command without specifying the number, it may occur out of memory errors. See [CI build](https://ci.appveyor.com/project/vigsterkr/shogun) as a reference and [Compiling manually](#manual) for more details. If you are interested in packaging, documenting, or contributing otherwise, please contact us.
 
 ##Docker images <a name="docker"></a>
 You can run Shogun in [our own cloud](cloud.shogun.ml) or set up your own using our
