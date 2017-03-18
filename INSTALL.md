@@ -21,8 +21,9 @@ For other cases, we describe how to build Shogun from source code.
    - [Interfaces](#manual-interfaces)
    - [Examples](#manual-examples)
    - [Problems](#manual-problems)
-
-
+   - [CMake tips](#manual-cmake)
+   - [Customized Python](#manual-python)
+   - [Winows](#manual-windows)
 
 ## Ready-to-install packages <a name="binaries"></a>
 
@@ -73,8 +74,11 @@ Install the latest stable version as
 
     sudo brew install shogun
 
+Note: Shogun in homebrew is outdated.
+Contact us if this changed or if you want to help changing it.
+
 ### Windows <a name="windows"></a>
-Shogun natively compiles under Windows using MSVC, see the [CI build](https://ci.appveyor.com/project/vigsterkr/shogun).
+Shogun natively compiles under Windows using MSVC, see the [AppVeyor CI build](https://ci.appveyor.com/project/vigsterkr/shogun) and the [Windows section](#manual-windows)
 We currently do not support a binary installer.
 If you are interested in packaging, documenting, or contributing otherwise, please contact us.
 
@@ -177,8 +181,10 @@ cmake -DPythonModular=ON [potentially more options] ..
 ```
 
 The required packages (here debian/Ubuntu package names) for each interface are
+
  * Python
    - `python-dev python-numpy`
+   - For dealing with customized Python environments, see [here](#manual-python)
  * Octave
    - `octave liboctave-dev`
  * R
@@ -211,3 +217,69 @@ See [DEVELOPING.md](DEVELOPING.md) for how the examples are used as tests.
 ## Problems? Got stuck? Found a bug? Help?  <a name="manual-problems"></a>
 
 In case you have a problem building Shogun, please open an [issue on github](https://github.com/shogun-toolbox/shogun/issues) with your system details, *exact* commands used, and logs posted as a [gist](https://gist.github.com/).
+
+## CMake tips <a name="manual-cmake"></a>
+CMake is a beast.
+Make sure to read the [docs](https://cmake.org/documentation/) and [CMake_Useful_Variables](http://cmake.org/Wiki/CMake_Useful_Variables).
+Make sure to understand the concept of [out of source builds](https://cmake.org/Wiki/CMake_FAQ#Out-of-source_build_trees).
+Here are some tips on common options that are useful
+
+Getting a list of possible interfaces to enable:
+
+    grep -E "OPTION.*(Modular)" CMakeLists.txt
+
+Specify a different swig executable:
+
+    cmake -DSWIG_EXECUTABLE=/usr/bin/swig_custom
+
+To specify a different compiler, see [CMake FAQ, "How do I use a different compiler?"](http://www.cmake.org/Wiki/CMake_FAQ#How_do_I_use_a_different_compiler.3F).
+You might have to delete the build directory or clear the cmake cache otherwise for this to work.
+
+    CC=/path/to/gcc CXX=/path/to/g++ cmake ..
+
+In case header files or libraries are not at standard locations one needs
+to manually adjust the libray and include paths, `-DCMAKE_INCLUDE_PATH=/my/include/path` and `-DCMAKE_LIBRARY_PATH=/my/library/path`.
+
+
+## Customized Python environments <a name="manual-python"></a>
+Often, there are multiple Python versions installed on the system.
+There are various reasons for this, i.e. Linux without root access, MacOS + homebrew, using [Anaconda](https://www.continuum.io/downloads) or [virtualenv](https://virtualenv.pypa.io).
+If Shogun is executed using a different Python version that the one it was built against, one will observe crashes when importing Shogun.
+If this is your setup, you need to make sure that Shogun is both **built** and **executed** against the Python environment of **your** choice.
+For that, you need to do something similar to
+
+    cmake -DPYTHON_INCLUDE_DIR=/path/to/python/include/dir -DPYTHON_LIBRARY=path/to/python/libpythonVERSION.{so|dynlib} -DPYTHON_EXECUTABLE:/path/to/python/executable -DPYTHON_PACKAGES_PATH=/path/to/python/dist-packages ..
+
+For example, for `brew` installed Python under MacOC, use something like:
+
+    cmake -DPYTHON_INCLUDE_DIR=/usr/local/Cellar/python/2.7.5/Frameworks/Python.framework/Headers -DPYTHON_LIBRARY=/usr/local/Cellar/python/2.7.5/Frameworks/Python.framework/Versions/2.7/lib/libpython2.7.dylib  -DPythonModular=ON ..
+
+Under Linux, where you want to use Python 3, which is not the system's default:
+
+    cmake -DPYTHON_INCLUDE_DIR=/usr/include/python3.3 -DPYTHON_EXECUTABLE:FILEPATH=/usr/bin/python3 -DPYTHON_PACKAGES_PATH=/usr/local/lib/python3.3/dist-packages -DPythonModular=ON ..
+
+On a Linux cluster without root access, using [Anaconda](https://www.continuum.io/downloads) (note you will need to activate your environment everytime you want to run Shogun):
+
+    source path/to/anaconda/bin/activate
+    cmake -DCMAKE_INSTALL_PREFIX=path/to/shogun/install/dir -DPYTHON_INCLUDE_DIR=path/to/anaconda/include/python2.7/ -DPYTHON_LIBRARY=path/to/anaconda/lib/libpython2.7.so  -DPYTHON_EXECUTABLE=path/to/anaconda/bin/python -DPythonModular=On ..
+
+## Windows build <a name="manual-windows"></a>
+
+Please see our [AppVeyor](https://ci.appveyor.com/project/vigsterkr/shogun) build.
+It is recommended to use "Visual Studio 14 2015" or "MSBuild".
+You will need to adjust all path names to the Windows style, e.g.
+
+    git clone https://github.com/shogun-toolbox/shogun.git C:\projects\shogun 
+    git submodule -q update --init
+    cd C:\projects\shogun
+    md build && cd build
+
+You need to specify a different generator in cmake (to match your IDE), e.g.
+
+    cmake -G"Visual Studio 14 2015 Win64" -DCMAKE_BUILD_TYPE=Release -DBUILD_META_EXAMPLES=OFF -DENABLE_TESTING=ON ..
+
+Compiling works as
+
+    msbuild "C:\projects\shogun\build\shogun.sln" /verbosity:minimal /t:Clean /p:Configuration=Release /p:Platform=x64
+
+Note: If you use /m in msbuild command without specifying the number, it may occur out of memory errors.

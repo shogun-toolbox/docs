@@ -14,8 +14,8 @@ If you feel that this readme is missing something, please send a patch! :)
  * [Shogun git development cycle](#devcycle)
  * [Testing](#testing)
  * [Buildfarm](#buildfarm)
- * [CMake (build process) tips](#cmake)
  * [API documentation](#api)
+ * [CMake options](#cmake)
 
 # Shogun git development cycle <a name="devcycle"></a>
 We use the [git flow](https://guides.github.com/introduction/flow/) workflow.
@@ -258,11 +258,9 @@ After one of your PR is merged, check the status of the buildbot for a while.
 The [waterfall](http://buildbot.shogun-toolbox.org/waterfall) view is most useful.
 Again, check the logs if there are problems.
 
-# CMake tips <a name="cmake"></a>
-CMake is a beast. Make sure to read the [docs](https://cmake.org/documentation/) and [CMake_Useful_Variables](http://cmake.org/Wiki/CMake_Useful_Variables).
-Make sure to understand the concept of [out of source builds](https://cmake.org/Wiki/CMake_FAQ#Out-of-source_build_trees).
-Here are some tips on common options that are useful
 
+# CMake options for developers <a name="cmake"></a>
+See also [INSTALL.md](INSTALL.md).
 Options for developers (debugging symbols on, optimization off, etc.):
 
     cmake -DCMAKE_BUILD_TYPE=Debug -DENABLE_TESTING=ON -DBUILD_DASHBOARD_REPORTS=ON ..
@@ -270,41 +268,6 @@ Options for developers (debugging symbols on, optimization off, etc.):
 Options for building the final binaries (debugging off, optimization on):
 
     cmake -DCMAKE_BUILD_TYPE=Release ..
-
-Getting a list of possible interfaces to enable:
-
-    grep -E "OPTION.*(Modular)" CMakeLists.txt
-
-If eigen3 or json-c are missing use the following to download and compile these dependencies:
-
-    cmake -DBUNDLE_EIGEN=ON -DBUNDLE_JSON=ON
-
-Specify a different swig executable:
-
-    cmake -DSWIG_EXECUTABLE=/usr/bin/swig_custom
-
-To specify a different compiler, see [CMake FAQ, "How do I use a different compiler?"](http://www.cmake.org/Wiki/CMake_FAQ#How_do_I_use_a_different_compiler.3F).
-You might have to delete the build directory or clear the cmake cache otherwise for this to work.
-
-    CC=/path/to/gcc CXX=/path/to/g++ cmake ..
-
-Under OS X one often has the same Python major versions installed in `/usr` and `/usr/local` via brew etc, so one might observe crashes if the wrong Python version is linked against.
-To use a custom Python installation for Python bindings one would under brew use something like:
-
-    cmake -DPYTHON_INCLUDE_DIR=/usr/local/Cellar/python/2.7.5/Frameworks/Python.framework/Headers -DPYTHON_LIBRARY=/usr/local/Cellar/python/2.7.5/Frameworks/Python.framework/Versions/2.7/lib/libpython2.7.dylib  -DPythonModular=ON ..
-
-or, in general:
-
-    cmake -DPYTHON_INCLUDE_DIR=/path/to/python/include/dir -DPYTHON_LIBRARY=path/to/python/libpythonVERSION.so ..
-
-Under Linux, one may need to switch between different versions of Python, in which case the following options need to be included: `-DPYTHON_EXECUTABLE:FILEPATH=/path/to/python/version`, `-DPYTHON_INCLUDE_DIR=/path/to/includes` and `-DPYTHON_PACKAGES_PATH=/path/to/dist/packages`
-
-For example:
-
-    cmake -DPYTHON_INCLUDE_DIR=/usr/include/python3.3 -DPYTHON_EXECUTABLE:FILEPATH=/usr/bin/python3 -DPYTHON_PACKAGES_PATH=/usr/local/lib/python3.3/dist-packages -DPythonModular=ON ..
-
-In case header files or libraries are not at standard locations one needs
-to manually adjust the libray and include paths, `-DCMAKE_INCLUDE_PATH=/my/include/path` and `-DCMAKE_LIBRARY_PATH=/my/library/path`.
 
 # API documentation <a name="api"></a>
 Shogun uses [doxygen](http://www.stack.nl/~dimitri/doxygen/) for its [API documentation](shogun.ml/api).
