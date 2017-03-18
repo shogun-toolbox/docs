@@ -88,10 +88,11 @@ The steps are
  * The PR is small in terms of lines changes.
  * The PR is clean and addresses **one** issue.
  * The number of commits is minimal (i.e. one), the message is neat and clear.
- * If C++ code: it is covered by [tests](#testing), it doesn't leak memory, its [API](#api) is documented.
+ * If C++ code: it is covered by [tests](#testing), it doesn't leak memory, its [API](#api) is documented, [code style](https://github.com/shogun-toolbox/shogun/wiki/Code-style).
  * If API example: it has a clear scope, it is minimal, it looks polished, it has a passing [test](#testing)
  * If docs: clear, correct English language, spell-checked
  * If notebook: cell output is removed, template is respected, plots have axis labels.
+ * Formatting notebooks/docs: Please every sentence in a single line.
 
 # Testing <a name="testing"></a>
 There are three types of tests that can be executed locally, C++ unit tests, running the API examples, and integration testing the results of the API examples.
@@ -228,7 +229,7 @@ Please check the logs!
 # Build farm <a name="devcycle"></a>
 We run two types of buildfarms that are automatically triggered
 
-1. [Travis](https://travis-ci.org/shogun-toolbox/shogun), executed in a third-party cloud when **opening** a PR
+1. [Travis](https://travis-ci.org/shogun-toolbox/shogun), and [AppVeyor](https://ci.appveyor.com/project/vigsterkr/shogun) executed in a third-party cloud when **opening** a PR
 2. [Buildbot](http://buildbot.shogun-toolbox.org/waterfall), executed in our own cloud **after** every merged PR or commit
 
 In addition, we have a few hooks on PRs that are executed along with travis, such as a preview of API examples.
