@@ -1,7 +1,8 @@
 # Installing Shogun
 
-For certain systems, we offer pre-built packages of Shogun. This is the easiest
-way to start using it. For other cases, we describe how to build Shogun from source code.
+For certain systems, we offer pre-built packages of Shogun.
+This is the easiest way to start using it.
+For other cases, we describe how to build Shogun from source code.
 
 
 # Quicklinks
@@ -26,8 +27,8 @@ way to start using it. For other cases, we describe how to build Shogun from sou
 ## Ready-to-install packages <a name="binaries"></a>
 
 ### Ubuntu ppa <a name="ubuntu"></a>
-We are working on integrating Shogun with Debian/Ubuntu. In the meantime, we offer a
-[prepackaged ppa](https://launchpad.net/~shogun-toolbox/+archive/ubuntu/stable).
+We are working on integrating Shogun with Debian/Ubuntu.
+In the meantime, we offer a [prepackaged ppa](https://launchpad.net/~shogun-toolbox/+archive/ubuntu/stable).
 These currently do contain the C++ library and Python bindings.
 Add this to your system as
 
@@ -42,13 +43,11 @@ The Python (2) bindings can be installed as
 
     sudo apt-get install python-shogun
 
-In addition to the latest stable release, we offer [nightly builds](https://launchpad.net/~shogun-toolbox/+archive/ubuntu/nightly) of our
-development branch.
+In addition to the latest stable release, we offer [nightly builds](https://launchpad.net/~shogun-toolbox/+archive/ubuntu/nightly) of our development branch.
 
 ### Debian <a name="debian"></a>
-Latest packages for Debian jessie are available in our own repository at
-[http://apt.shogun.ml](http://apt.shogun.ml). We provide both the stable
-and nightly packages, currenlty only for amd64 architecture.
+Latest packages for Debian jessie are available in our own repository at [http://apt.shogun.ml](http://apt.shogun.ml).
+We provide both the stable and nightly packages, currenlty only for amd64 architecture.
 In order to add the stable packages to your system, simply run the following commands
 
     sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 3DD2174ACAB30365
@@ -59,8 +58,7 @@ After this just simply install the shogun library
 
     sudo apt-get install libshogun17
 
-The nightly packages are available in the `nightly` component, i.e.
-`deb http://apt.shogun.ml/ jessie nightly`
+The nightly packages are available in the `nightly` component, i.e. `deb http://apt.shogun.ml/ jessie nightly`
 
 ### Fedora <a name="fedora"></a>
 Shogun is part of [Fedora 25](https://admin.fedoraproject.org/pkgdb/package/rpms/shogun/).
@@ -70,13 +68,15 @@ Install as
 
 
 ### MacOS <a name="mac"></a>
-Shogun is part of [homebrew-science](https://github.com/Homebrew/homebrew-science). Install the latest stable version as
+Shogun is part of [homebrew-science](https://github.com/Homebrew/homebrew-science).
+Install the latest stable version as
 
     sudo brew install shogun
 
 ### Windows <a name="windows"></a>
-Shogun natively compiles under Windows using MSVC, see the [CI build](https://ci.appveyor.com/project/vigsterkr/shogun). We currently do not support a binary
-installer. If you are interested in packaging, documenting, or contributing otherwise, please contact us.
+Shogun natively compiles under Windows using MSVC, see the [CI build](https://ci.appveyor.com/project/vigsterkr/shogun).
+We currently do not support a binary installer.
+If you are interested in packaging, documenting, or contributing otherwise, please contact us.
 
 ## Docker images <a name="docker"></a>
 You can run Shogun in [our own cloud](cloud.shogun.ml) or set up your own using our
@@ -87,7 +87,7 @@ You can run Shogun in [our own cloud](cloud.shogun.ml) or set up your own using 
 
 We offer images for both the latest release and nightly development builds.
 
-Sometimes mounting a local folder into the docker image is useful. 
+Sometimes mounting a local folder into the docker image is useful.
 You can do this via passing an additional option
 
 ```
@@ -101,7 +101,8 @@ See the Docker documentation for further details.
 Shogun is can be automatically built from source from the following langauges.
 
 ### Python pypi <a name="pypi"></a>
-You can install from [pipy](https://pypi.python.org/pypi/shogun-ml/). There is limited control over options and it might take a long time as everything is done from scratch.
+You can install from [pipy](https://pypi.python.org/pypi/shogun-ml/).
+There is limited control over options and it might take a long time as everything is done from scratch.
 
     pip install shogun-ml
 
@@ -116,17 +117,20 @@ In case none of the binary packages listed on our website work for your system, 
 The standard GNU/Linux tools and Python are minimal requirements to compile Shogun.
 To compile the interfaces, in addition to [swig](http://www.swig.org/) itself, you will need language specific development packages installed, see [interfaces](#manual-interfaces) below.
 
-There is a larger number of optional requirements. The output of cmake output lists
-optional dependencies that were found and not found.
+There is a larger number of optional requirements.
+The output of cmake output lists optional dependencies that were found and not found.
 If a particular Shogun class is unavailable, this is likely due to an unmet dependency.
 See our [docker configuration file](https://github.com/shogun-toolbox/shogun/blob/develop/configs/shogun/Dockerfile) for an example configuration used in our test builds.
 
-You need at least 1GB free disk space. If you compile any interface, roughly 4 GB RAM are need (we are working on reducing this). [CCache](https://ccache.samba.org/) will massively speed up the compilation process and is enabled by default if installed.
+You need at least 1GB free disk space. If you compile any interface, roughly 4 GB RAM are need (we are working on reducing this).
+[CCache](https://ccache.samba.org/) will massively speed up the compilation process and is enabled by default if installed.
 
 ## Basics <a name="manual-basics"></a>
-Shogun uses [CMake](https://cmake.org/) for its build. The general workflow is now explained. For further details on testing etc, see [DEVELOPING.md](DEVELOPING.md).
+Shogun uses [CMake](https://cmake.org/) for its build. The general workflow is now explained.
+For further details on testing etc, see [DEVELOPING.md](DEVELOPING.md).
 
-Download the latest [stable release source code](https://github.com/shogun-toolbox/shogun/releases/latest), or (as demonstrated here) clone the latest develop code. Potentially update submodules
+Download the latest [stable release source code](https://github.com/shogun-toolbox/shogun/releases/latest), or (as demonstrated here) clone the latest develop code.
+Potentially update submodules
 
     git clone https://github.com/shogun-toolbox/shogun.git
     git submodule update --init
@@ -137,8 +141,7 @@ Create the build directory in the source tree root
     mkdir build
 
 Configure cmake, from the build directory, passing the Shogun source root as argument.
-It is recommended to use any of CMake GUIs (e.g. replace `cmake ..` with `ccmake ..`),
-in particular if you feel unsure about possible parameters and configurations.
+It is recommended to use any of CMake GUIs (e.g. replace `cmake ..` with `ccmake ..`), in particular if you feel unsure about possible parameters and configurations.
 Note that all cmake options read as `-DOPTION=VALUE`.
 
     cd build
@@ -149,12 +152,12 @@ Compile
     make
 
 
-Install (prepend `sudo` if installing system wide). Done.
+Install (prepend `sudo` if installing system wide), and your are done.
 
     make install
 
-Sometimes you might need to clean up your build (e.g. in case of some major
-changes). First, try
+Sometimes you might need to clean up your build (e.g. in case of some major changes).
+First, try
 
     make clean
 
@@ -162,14 +165,13 @@ If that does not help, try removing the build directory and starting from scratc
 
     rm -rf build
 
-If you prefer to not run the `sudo make install` command system wide, you can
-either install Shogun to a custom location (`-DCMAKE_INSTALL_PREFIX=/custom/path`, defaults to `/usr/local`), or even skip `make install` at all.
-In both cases, it is necessary to set a number of system libraries for using Shogun,
-see [INTERFACES.md](INTERFACES.md).
+If you prefer to not run the `sudo make install` command system wide, you can either install Shogun to a custom location (`-DCMAKE_INSTALL_PREFIX=/custom/path`, defaults to `/usr/local`), or even skip `make install` at all.
+In both cases, it is necessary to set a number of system libraries for using Shogun, see [INTERFACES.md](INTERFACES.md).
 
 ## Interfaces <a name="manual-interfaces"></a>
 The native C++ interface is always included.
-The cmake options for building interfaces are `-DPythonModular -DOctaveModular -DRModular -DJavaModular -DRubyModular -DLuaModular -DCSharpModular` etc. For example, replace the cmake step above by
+The cmake options for building interfaces are `-DPythonModular -DOctaveModular -DRModular -DJavaModular -DRubyModular -DLuaModular -DCSharpModular` etc.
+For example, replace the cmake step above by
 ```
 cmake -DPythonModular=ON [potentially more options] ..
 ```
@@ -200,10 +202,11 @@ generate them (plus additional ones) locally (needs cmake switch `-DBUILD_META_E
 
     make meta_examples
 
-This requires [PLY for Python](https://pypi.python.org/pypi/ply), package `python-ply`, and [ctags](http://ctags.sourceforge.net/), package `ctags`. Both source code and potential executables (C++, Java, C-Sharp) are created in `build/examples/meta/` when running
-`make`.
+This requires [PLY for Python](https://pypi.python.org/pypi/ply), package `python-ply`, and [ctags](http://ctags.sourceforge.net/), package `ctags`.
+Both source code and potential executables (C++, Java, C-Sharp) are created in `build/examples/meta/` when running `make`.
 
-See [INTERFACES.md](INTERFACES.md) to run the generated examples and see [EXAMPLES.md](EXAMPLES.md) for more details on their mechanics. See [DEVELOPING.md](DEVELOPING.md) for how the examples are used as tests.
+See [INTERFACES.md](INTERFACES.md) to run the generated examples and see [EXAMPLES.md](EXAMPLES.md) for more details on their mechanics.
+See [DEVELOPING.md](DEVELOPING.md) for how the examples are used as tests.
 
 ## Problems? Got stuck? Found a bug? Help?  <a name="manual-problems"></a>
 

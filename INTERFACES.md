@@ -1,15 +1,14 @@
 Running Shogun from the interfaces
 ==================================
 
-We assume that installation (including the interfaces) was successful and all
-dependencies are installed. See [INSTALL.md](INSTALL.md) and our website.
+We assume that installation (including the interfaces) was successful and all dependencies are installed. See [INSTALL.md](INSTALL.md) and our website.
 
-Note that setting some the enviromental variables should not be necessary in case
-you installed Shogun to the default folder or installed it from a binary package.
+Note that setting some the enviromental variables should not be necessary in case you installed Shogun to the default folder or installed it from a binary package.
 
 ## The shared library
 All interfaces require the Shogun library to be visible to your system.
-You can prepend the *folder* (!=full filename) of `libshogun.*` to an environmental variable. On Linux, this is done with
+You can prepend the *folder* (!=full filename) of `libshogun.*` to an environmental variable.
+On Linux, this is done with
 
     export LD_LIBRARY_PATH="path/to/libshogun.so:$LD_LIBRARY_PATH"
 
@@ -17,19 +16,20 @@ On MacOS
 
     export DYLD_LIBRARY_PATH="path/to/libshogun.dylib:$DYLD_LIBRARY_PATH"
 
-Note that the `libshogun.*` was either copied to `path/to/shogun-install/lib/` when
-running `make install`. You can also make it point to the build directory
- `path/to/build/src/shogun/` to make it available after a successful `make`.
+Note that the `libshogun.*` was either copied to `path/to/shogun-install/lib/` when running `make install`.
+You can also make it point to the build directory `path/to/build/src/shogun/` to make it available after a successful `make`.
 All subsequent settings can be set to the build dir or the installation dir.
 
 ## Interfaces
 
-We now describe how to run code that uses Shogun in all interfaces. For language
-specific defails how to import and use Shogun in all interfaces, see the
-examples on our website.
+We now describe how to run code that uses Shogun in all interfaces.
+For language specific defails how to import and use Shogun in all interfaces, see the examples on our website.
 
 ### Native C++
-Make sure you read up on how to compile C/C++ code. Compilation requires the Shogun headers path, i.e. the path where for example `shogun/base/init.h` is located. This is either in `path/to/src/shogun/` or in `path/to/shogun-install/include/shogun/` and is specified  via the `-I` flag. Linking requires the `-lshogun` flag, which either needs the `LD_LIBRARY_PATH` or `DYLD_LIBRARY_PATH` set up as described above, or preferably passed via the `-L` flag
+Make sure you read up on how to compile C/C++ code.
+Compilation requires the Shogun headers path, i.e. the path where for example `shogun/base/init.h` is located.
+This is either in `path/to/src/shogun/` or in `path/to/shogun-install/include/shogun/` and is specified  via the `-I` flag.
+Linking requires the `-lshogun` flag, which either needs the `LD_LIBRARY_PATH` or `DYLD_LIBRARY_PATH` set up as described above, or preferably passed via the `-L` flag.
 Compiling and linking code with `gcc` works as
 
     gcc path/to/native_example.cpp -o native_example -I/path/to/headers -lshogun -L/path/to/libshogun.*
@@ -73,9 +73,11 @@ Running an example:
 
 ### Lua
 This needs `libmodshogun.so` (this is the interface file, not the shared library file `libshogun.so`) to be visible, which is either in `path/to/build/src/interfaces/lua_modular/` or in something similar to `path/to/shogun-install/lib/lua/5.1/`
+
     export LUA_CPATH="path/to/libmodshogun.so:$LUA_CPATH"
 
 Running an example:
+
     R --no-restore --no-save --no-readline --slave -f path/to/r_example.R
 
 ### CSharp
@@ -100,14 +102,16 @@ usually in `/usr/share/java/`.
 
 Compiling code works with the java compiler and passing location of `shogun.jar`,
 `jblas.jar`, and the example itself in the class path
-    $javac -cp /path/to/jblas.jar:/path/to/modshogun.jar:path/to/java_example.java -d /path/to/output/ /path/to/java_example.java
+
+    javac -cp /path/to/jblas.jar:/path/to/modshogun.jar:path/to/java_example.java -d /path/to/output/ /path/to/java_example.java
 
 Running it again requires the above class path and some more options
 
     java -Xmx1024m -cp /path/to/jblas.jar:/path/to/shogun.jar:path/to/java_example.java -Djava.library.path=/path/to/shogun.jar java_example
 
 ### Provided Examples
-Stand-alone, executable code for all interface examples on our website (and more) can be generated locally, see [INSTALL.md](INSTALL.md). As the examples load data files, they requires the `shogun-data` submodule to be checked out.
+Stand-alone, executable code for all interface examples on our website (and more) can be generated locally, see [INSTALL.md](INSTALL.md).
+As the examples load data files, they requires the `shogun-data` submodule to be checked out.
 
 All examples should be run in the respective folder they are located in, for example (assuming that all described variables are set)
 
