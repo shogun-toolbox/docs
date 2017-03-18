@@ -1,4 +1,4 @@
-#Installing Shogun
+# Installing Shogun
 
 For certain systems, we offer pre-built packages of Shogun. This is the easiest
 way to start using it. For other cases, we describe how to build Shogun from source code.
@@ -20,20 +20,20 @@ way to start using it. For other cases, we describe how to build Shogun from sou
    - [Interfaces](#manual-interfaces)
    - [Examples](#manual-examples)
    - [Problems](#manual-problems)
-   
 
 
-##Ready-to-install packages <a name="binaries"></a>
 
-###Ubuntu ppa <a name="ubuntu"></a>
+## Ready-to-install packages <a name="binaries"></a>
+
+### Ubuntu ppa <a name="ubuntu"></a>
 We are working on integrating Shogun with Debian/Ubuntu. In the meantime, we offer a
 [prepackaged ppa](https://launchpad.net/~shogun-toolbox/+archive/ubuntu/stable).
 These currently do contain the C++ library and Python bindings.
 Add this to your system as
-    
+
     $ sudo add-apt-repository ppa:shogun-toolbox/stable
     $ sudo apt-get update
-    
+
 Then, install as
 
     $ sudo apt-get install libshogun17
@@ -45,7 +45,7 @@ The Python (2) bindings can be installed as
 In addition to the latest stable release, we offer [nightly builds](https://launchpad.net/~shogun-toolbox/+archive/ubuntu/nightly) of our
 development branch.
 
-###Debian <a name="debian"></a>
+### Debian <a name="debian"></a>
 Latest packages for Debian jessie are available in our own repository at
 [http://apt.shogun.ml](http://apt.shogun.ml). We provide both the stable
 and nightly packages, currenlty only for amd64 architecture.
@@ -62,31 +62,31 @@ After this just simply install the shogun library
 The nightly packages are available in the `nightly` component, i.e.
 `deb http://apt.shogun.ml/ jessie nightly`
 
-###Fedora <a name="fedora"></a>
+### Fedora <a name="fedora"></a>
 Shogun is part of [Fedora 25](https://admin.fedoraproject.org/pkgdb/package/rpms/shogun/).
 Install as
 
     $ sudo dnf install shogun
-    
-    
-###Mac <a name="mac"></a>
+
+
+### MacOS <a name="mac"></a>
 Shogun is part of [homebrew-science](https://github.com/Homebrew/homebrew-science). Install the latest stable version as
 
     $ sudo brew install shogun
 
-###Windows <a name="windows"></a>
+### Windows <a name="windows"></a>
 Shogun natively compiles under Windows using MSVC, see the [CI build](https://ci.appveyor.com/project/vigsterkr/shogun). We currently do not support a binary
 installer. If you are interested in packaging, documenting, or contributing otherwise, please contact us.
 
-##Docker images <a name="docker"></a>
+## Docker images <a name="docker"></a>
 You can run Shogun in [our own cloud](cloud.shogun.ml) or set up your own using our
 [Docker images](https://hub.docker.com/r/shogun/shogun-dev/) as:
 
     $ sudo docker pull shogun/shogun
     $ sudo docker run -it shogun/shogun bash
-    
+
 We offer images for both the latest release and nightly development builds.
-    
+
 Sometimes mounting a local folder into the docker image is useful. 
 You can do this via passing an additional option
 
@@ -97,22 +97,22 @@ You can do this via passing an additional option
 See the Docker documentation for further details.
 
 
-##Integration with interface language build systems <a name="language"></a>
+## Integration with interface language build systems <a name="language"></a>
 Shogun is can be automatically built from source from the following langauges.
 
-###Python pypi <a name="pypi"></a>
+### Python pypi <a name="pypi"></a>
 You can install from [pipy](https://pypi.python.org/pypi/shogun-ml/). There is limited control over options and it might take a long time as everything is done from scratch.
 
     $ pip install shogun-ml
-    
+
 We do not reccomend this option and suggest to rather compile by hand as described below.
 
 
-#Compiling manually <a name="manual"></a>
+# Compiling manually <a name="manual"></a>
 
 In case none of the binary packages listed on our website work for your system, or you want to modify Shogun, you will need to build it from source.
 
-##Requirements <a name="manual-requirements"></a>
+## Requirements <a name="manual-requirements"></a>
 The standard GNU/Linux tools and Python are minimal requirements to compile Shogun.
 To compile the interfaces, in addition to [swig](http://www.swig.org/) itself, you will need language specific development packages installed, see [interfaces](#manual-interfaces) below.
 
@@ -123,19 +123,19 @@ See our [docker configuration file](https://github.com/shogun-toolbox/shogun/blo
 
 You need at least 1GB free disk space. If you compile any interface, roughly 4 GB RAM are need (we are working on reducing this). [CCache](https://ccache.samba.org/) will massively speed up the compilation process and is enabled by default if installed.
 
-##Basics <a name="manual-basics"></a>
+## Basics <a name="manual-basics"></a>
 Shogun uses [CMake](https://cmake.org/) for its build. The general workflow is now explained. For further details on testing etc, see [DEVELOPING.md](DEVELOPING.md).
 
 Download the latest [stable release source code](https://github.com/shogun-toolbox/shogun/releases/latest), or (as demonstrated here) clone the latest develop code. Potentially update submodules
 
     $ git clone https://github.com/shogun-toolbox/shogun.git
     $ git submodule update --init
-    
+
 Create the build directory in the source tree root
 
     $ cd shogun
     $ mkdir build
-    
+
 Configure cmake, from the build directory, passing the Shogun source root as argument.
 It is recommended to use any of CMake GUIs (e.g. replace `cmake ..` with `ccmake ..`),
 in particular if you feel unsure about possible parameters and configurations.
@@ -143,12 +143,12 @@ Note that all cmake options read as `-DOPTION=VALUE`.
 
     $ cd build
     $ cmake [options] ..
-    
+
 Compile
 
     $ make
 
-    
+
 Install (prepend `sudo` if installing system wide). Done.
 
     $ make install
@@ -167,7 +167,7 @@ either install Shogun to a custom location (`-DCMAKE_INSTALL_PREFIX=/custom/path
 In both cases, it is necessary to set a number of system libraries for using Shogun,
 see [INTERFACES.md](INTERFACES.md).
 
-##Interfaces <a name="manual-interfaces"></a>
+## Interfaces <a name="manual-interfaces"></a>
 The native C++ interface is always included.
 The cmake options for building interfaces are `-DPythonModular -DOctaveModular -DRModular -DJavaModular -DRubyModular -DLuaModular -DCSharpModular` etc. For example, replace the cmake step above by
 ```
@@ -194,7 +194,7 @@ The required packages (here debian/Ubuntu package names) for each interface are
 To *use* the interfaces, in particular if not installing to the default system-wide location, see [INTERFACES.md](INTERFACES.md).
 See [examples](#manual-examples) below for how to create the examples from the website locally.
 
-##Generating examples <a name="manual-examples"></a>
+## Generating examples <a name="manual-examples"></a>
 All Shogun examples at our website are automatically generated code. You can
 generate them (plus additional ones) locally (needs cmake switch `-DBUILD_META_EXAMPLES=ON`)
 
@@ -205,6 +205,6 @@ This requires [PLY for Python](https://pypi.python.org/pypi/ply), package `pytho
 
 See [INTERFACES.md](INTERFACES.md) to run the generated examples and see [EXAMPLES.md](EXAMPLES.md) for more details on their mechanics. See [DEVELOPING.md](DEVELOPING.md) for how the examples are used as tests.
 
-##Problems? Got stuck? Found a bug? Help?  <a name="manual-problems"></a>
+## Problems? Got stuck? Found a bug? Help?  <a name="manual-problems"></a>
 
 In case you have a problem building Shogun, please open an [issue on github](https://github.com/shogun-toolbox/shogun/issues) with your system details, *exact* commands used, and logs posted as a [gist](https://gist.github.com/).

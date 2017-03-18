@@ -12,7 +12,7 @@ In Shogun, writing a single example files covers all interface languages at once
 The listings that can be found in `examples/meta/src/*/*.sg` contain example code in a meta-language that is specific to Shogun. During the build, these are parsed and then translated with the (Python) machinery in `examples/meta/generator/*.py`. The output is a code listing for each target language defined in `examples/meta/src/generator/targets/*.json`. The process can be invoked with
 
     make meta_examples
-    
+
 This is only available when the cmake option `BUILD_META_EXAMPLES=ON` is set, and the Python requirements in `examples/meta/requirements.txt` are met.
 
 The C++ examples are always available, you can compile them using `make` or more specifically
@@ -34,7 +34,7 @@ It is extremely simple to add a new example: simple create another `*.sg` file. 
 
 If you porting an example is great, even better is when it comes with integration testing data of the numerical output, as described in [DEVELOPING.md](DEVELOPING.md#testing).
 
-Please take inspiration from the existing examples, especially those that were written as part of the [Google Summer of Code](https://github.com/shogun-toolbox/shogun/wiki/GSoC-follow-up-blog-posts) 2016. 
+Please take inspiration from the existing examples, especially those that were written as part of the [Google Summer of Code](https://github.com/shogun-toolbox/shogun/wiki/GSoC-follow-up-blog-posts) 2016.
 
 Please don't break the build. Always compile and run at least the C++ version of the example.
 Check potential requirements of C++ guards that can make a class used in the example unavailable (`HAVE_LAPACK`, `HAVE_NLOPT`, `USE_GPL_SHOGUN`, etc); potentially add them [here](https://github.com/shogun-toolbox/shogun/blob/develop/cmake/FindMetaExamples.cmake).
@@ -76,7 +76,7 @@ You can render it with
 which is also part of `make doc`. The target might not be available if the requirements in `doc/cookbook/requirements.txt` are not satisfied (in particular Sphinx), or if the meta examples are disabled.
 
 After the cookbook has been rendered, you can view it for example running
-    
+
     python -m SimpleHTTPServer
 
 in the `build/doc/cookbook/html` directory, and then open your browser at `localhost:8000`.

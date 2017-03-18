@@ -1,4 +1,4 @@
-#Developing Shogun
+# Developing Shogun
 
 This is a very basic list of things how to get started hacking Shogun. Your first steps should be to
 
@@ -30,7 +30,7 @@ We use the [git flow](https://guides.github.com/introduction/flow/) workflow. Th
         git branch develop
         git checkout develop
         git pull --rebase upstream develop
-   
+
    The steps until here only need to be executed once, with the exception being the last command: rebasing against the development branch. You will need to rebase everytime when the develop branch is updated.
 
 4. Create a feature branch (from develop)
@@ -41,31 +41,31 @@ We use the [git flow](https://guides.github.com/introduction/flow/) workflow. Th
 6. **Make sure (!)** that locally, your code **compiles**, it is **[tested](#testing)**, it complies to the code style described on the wiki.
 
         make && make test
-        
+
     If something does not work, try to find out whether your change caused it, and why. Read error messages and use the internet to find solutions. Compile errors are the easiest to fix! If all that does not help, ask us.
 
 7. Commit locally, using neat and informative commit messages, grouping commits, potentially iterate over more changes to the code,
 
         git commit FILENAME(S) -m "Fix issue #1234"
         git commit FILENAME(S) -m "Add feature XYZ"
-        
+
     The [amend option](https://help.github.com/articles/changing-a-commit-message/) is your friend if you are updating single commits (so that they appear as one)
-   
+
         git commit --amend FILENAME(S)
-       
+
     If you want to group say the last three commits as one, [squash](https://git-scm.com/book/en/v2/Git-Tools-Rewriting-History) them, for example
-    
+
         git reset --soft HEAD~3
         git commit -m 'Clear commit message'
-        
+
 8. [Rebase](https://git-scm.com/book/en/v2/Git-Branching-Rebasing) against shogun's develop branch. This might cause rebase errors, which you need to [solve](https://help.github.com/articles/resolving-merge-conflicts-after-a-git-rebase/)
 
         git pull --rebase upstream develop
-        
+
 9. Push your commits to your fork
 
         git push origin feature/BRANCH_NAME
-        
+
     If you squashed or amended commits after you had pushed already, you might be required to force push via using the `git push -f` option **with care**.
 
 10. Send a [pull request](https://help.github.com/articles/about-pull-requests/) (PR) via GitHub. As described above, you can always **update** a pull request using the the `git push -f` option. Please **do not** close and send new ones instead, always update.
@@ -82,9 +82,9 @@ We use the [git flow](https://guides.github.com/introduction/flow/) workflow. Th
  * If API example: it has a clear scope, it is minimal, it looks polished, it has a passing [test](#testing)
  * If docs: clear, correct English language, spell-checked
  * If notebook: cell output is removed, template is respected, plots have axis labels.
- 
+
 # Testing <a name="testing"></a>
-There are three types of tests that can be executed locally, C++ unit tests, running the API examples, and integration testing the results of the API examples. To activate them locally, enable the `-DENABLE_TESTING=ON` cmake switch before running cmake. Which tests are activated depends on your configuration. Adding a test in most cases requires to re-run `cmake`. All activated tests can be executed with 
+There are three types of tests that can be executed locally, C++ unit tests, running the API examples, and integration testing the results of the API examples. To activate them locally, enable the `-DENABLE_TESTING=ON` cmake switch before running cmake. Which tests are activated depends on your configuration. Adding a test in most cases requires to re-run `cmake`. All activated tests can be executed with
 
     make && make test
 
@@ -95,7 +95,7 @@ Sometimes, it is useful to run a single test, which can be done via [ctest](http
     ctest -R unit-LibSVR
     ctest -R generated_cpp-binary_classifier-kernel_svm
     ctest -R integration_meta_cpp-binary_classifier-kernel_svm -V
-    
+
 If a test name (or even the `make test` target) does not exist, this means that your configuration did not include it.
 
 If you are interested in details how the test is executed (command, variables, directory), add the `-V` option. Further details can be extracted from the `CMakeLists.txt` configuration files in the tests folder.
@@ -139,7 +139,7 @@ Every API example is used for two tests: simple execution and continuous integra
 Note that code for all interface examples needs to be generated as part of `make`, or using
 
     make meta_examples
-    
+
 This needs to be done everytime you add or modify an example. Examples for compiled interface languages (e.g. C++, Java) need to be compiled, either as part of `make`, or via more specific targets, e.g.
 
     make build_cpp_meta_examples
@@ -160,7 +160,7 @@ Check the `CMakeLists.txt` in `examples/meta/*` for further details.
 
 #### Adding tests
 As every example is turned into a test when running `cmake`, all you need to do is to add an example as described in [EXAMPLES.md](EXAMPLES.md).
-    
+
 ### Integration testing of results
 You will note that each example produces an output file with the `*.dat` extension. This is a serialized version of all numerical results of the example.
 The purpose is to make sure all interface versions (say C++ and Python) of an example produce the same output, and that this output does not change over time.
@@ -186,7 +186,7 @@ Once that is done, it would be good if you sent us a patch with the new test. Th
 
     git commit testsuite/meta/regression/kernel_ridge_regression.dat -m "Integration testing data for kernel ridge regression"
     git push origin
-    
+
 After this PR is merged, you need to send a second PR against the main repository, after commiting the updated version hash of the submodule (in the main shogun directory)
 
     git commit data -m "Updated to including kernel ridge regression test data"

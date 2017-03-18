@@ -101,11 +101,11 @@ usually in `/usr/share/java/`.
 Compiling code works with the java compiler and passing location of `shogun.jar`,
 `jblas.jar`, and the example itself in the class path
     $javac -cp /path/to/jblas.jar:/path/to/modshogun.jar:path/to/java_example.java -d /path/to/output/ /path/to/java_example.java
-					
+
 Running it again requires the above class path and some more options
 
     $ java -Xmx1024m -cp /path/to/jblas.jar:/path/to/shogun.jar:path/to/java_example.java -Djava.library.path=/path/to/shogun.jar java_example
-    
+
 ### Provided Examples
 Stand-alone, executable code for all interface examples on our website (and more) can be generated locally, see [INSTALL.md](INSTALL.md). As the examples load data files, they requires the `shogun-data` submodule to be checked out.
 
@@ -113,7 +113,7 @@ All examples should be run in the respective folder they are located in, for exa
 
     $ cd /path/to/shogun-install/examples/meta/python/regression/
     $ python linear_ridge_regression.py
-    
+
 Or, for a compiled language with a manually compiled, not yet installed Shogun, running directly from the source tree
 
     $ cd /path/to/shogun-source/build/examples/meta/csharp/regression/
