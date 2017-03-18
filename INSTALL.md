@@ -14,7 +14,7 @@ For other cases, we describe how to build Shogun from source code.
    - [Windows](#windows)
  * [Docker images](#docker)
  * [Integration with interface languages](#language)
-  - [Python](#pipy)
+   - [Python](#pipy)
  * [Compiling manually](#manual)
    - [Requirements](#manual-requirements)
    - [Basics](#manual-basics)
@@ -250,7 +250,7 @@ For that, you need to do something similar to
 
     cmake -DPYTHON_INCLUDE_DIR=/path/to/python/include/dir -DPYTHON_LIBRARY=path/to/python/libpythonVERSION.{so|dynlib} -DPYTHON_EXECUTABLE:/path/to/python/executable -DPYTHON_PACKAGES_PATH=/path/to/python/dist-packages ..
 
-For example, for `brew` installed Python under MacOC, use something like:
+For example, for `brew` installed Python under MacOS, use something like:
 
     cmake -DPYTHON_INCLUDE_DIR=/usr/local/Cellar/python/2.7.5/Frameworks/Python.framework/Headers -DPYTHON_LIBRARY=/usr/local/Cellar/python/2.7.5/Frameworks/Python.framework/Versions/2.7/lib/libpython2.7.dylib  -DPythonModular=ON ..
 
