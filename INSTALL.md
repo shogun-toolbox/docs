@@ -31,16 +31,16 @@ We are working on integrating Shogun with Debian/Ubuntu. In the meantime, we off
 These currently do contain the C++ library and Python bindings.
 Add this to your system as
 
-    $ sudo add-apt-repository ppa:shogun-toolbox/stable
-    $ sudo apt-get update
+    sudo add-apt-repository ppa:shogun-toolbox/stable
+    sudo apt-get update
 
 Then, install as
 
-    $ sudo apt-get install libshogun17
+    sudo apt-get install libshogun17
 
 The Python (2) bindings can be installed as
 
-    $ sudo apt-get install python-shogun
+    sudo apt-get install python-shogun
 
 In addition to the latest stable release, we offer [nightly builds](https://launchpad.net/~shogun-toolbox/+archive/ubuntu/nightly) of our
 development branch.
@@ -51,13 +51,13 @@ Latest packages for Debian jessie are available in our own repository at
 and nightly packages, currenlty only for amd64 architecture.
 In order to add the stable packages to your system, simply run the following commands
 
-    $ sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 3DD2174ACAB30365
-    $ echo "deb http://apt.shogun.ml/ jessie main" | sudo tee /etc/apt/sources.list.d/shogun-toolbox.list  > /dev/null
-    $ sudo apt-get update
+    sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 3DD2174ACAB30365
+    echo "deb http://apt.shogun.ml/ jessie main" | sudo tee /etc/apt/sources.list.d/shogun-toolbox.list  > /dev/null
+    sudo apt-get update
 
 After this just simply install the shogun library
 
-    $ sudo apt-get install libshogun17
+    sudo apt-get install libshogun17
 
 The nightly packages are available in the `nightly` component, i.e.
 `deb http://apt.shogun.ml/ jessie nightly`
@@ -66,13 +66,13 @@ The nightly packages are available in the `nightly` component, i.e.
 Shogun is part of [Fedora 25](https://admin.fedoraproject.org/pkgdb/package/rpms/shogun/).
 Install as
 
-    $ sudo dnf install shogun
+    sudo dnf install shogun
 
 
 ### MacOS <a name="mac"></a>
 Shogun is part of [homebrew-science](https://github.com/Homebrew/homebrew-science). Install the latest stable version as
 
-    $ sudo brew install shogun
+    sudo brew install shogun
 
 ### Windows <a name="windows"></a>
 Shogun natively compiles under Windows using MSVC, see the [CI build](https://ci.appveyor.com/project/vigsterkr/shogun). We currently do not support a binary
@@ -82,8 +82,8 @@ installer. If you are interested in packaging, documenting, or contributing othe
 You can run Shogun in [our own cloud](cloud.shogun.ml) or set up your own using our
 [Docker images](https://hub.docker.com/r/shogun/shogun-dev/) as:
 
-    $ sudo docker pull shogun/shogun
-    $ sudo docker run -it shogun/shogun bash
+    sudo docker pull shogun/shogun
+    sudo docker run -it shogun/shogun bash
 
 We offer images for both the latest release and nightly development builds.
 
@@ -103,7 +103,7 @@ Shogun is can be automatically built from source from the following langauges.
 ### Python pypi <a name="pypi"></a>
 You can install from [pipy](https://pypi.python.org/pypi/shogun-ml/). There is limited control over options and it might take a long time as everything is done from scratch.
 
-    $ pip install shogun-ml
+    pip install shogun-ml
 
 We do not reccomend this option and suggest to rather compile by hand as described below.
 
@@ -128,39 +128,39 @@ Shogun uses [CMake](https://cmake.org/) for its build. The general workflow is n
 
 Download the latest [stable release source code](https://github.com/shogun-toolbox/shogun/releases/latest), or (as demonstrated here) clone the latest develop code. Potentially update submodules
 
-    $ git clone https://github.com/shogun-toolbox/shogun.git
-    $ git submodule update --init
+    git clone https://github.com/shogun-toolbox/shogun.git
+    git submodule update --init
 
 Create the build directory in the source tree root
 
-    $ cd shogun
-    $ mkdir build
+    cd shogun
+    mkdir build
 
 Configure cmake, from the build directory, passing the Shogun source root as argument.
 It is recommended to use any of CMake GUIs (e.g. replace `cmake ..` with `ccmake ..`),
 in particular if you feel unsure about possible parameters and configurations.
 Note that all cmake options read as `-DOPTION=VALUE`.
 
-    $ cd build
-    $ cmake [options] ..
+    cd build
+    cmake [options] ..
 
 Compile
 
-    $ make
+    make
 
 
 Install (prepend `sudo` if installing system wide). Done.
 
-    $ make install
+    make install
 
 Sometimes you might need to clean up your build (e.g. in case of some major
 changes). First, try
 
-    $ make clean
+    make clean
 
 If that does not help, try removing the build directory and starting from scratch afterwards
 
-    $ rm -rf build
+    rm -rf build
 
 If you prefer to not run the `sudo make install` command system wide, you can
 either install Shogun to a custom location (`-DCMAKE_INSTALL_PREFIX=/custom/path`, defaults to `/usr/local`), or even skip `make install` at all.
@@ -198,7 +198,7 @@ See [examples](#manual-examples) below for how to create the examples from the w
 All Shogun examples at our website are automatically generated code. You can
 generate them (plus additional ones) locally (needs cmake switch `-DBUILD_META_EXAMPLES=ON`)
 
-    $ make meta_examples
+    make meta_examples
 
 This requires [PLY for Python](https://pypi.python.org/pypi/ply), package `python-ply`, and [ctags](http://ctags.sourceforge.net/), package `ctags`. Both source code and potential executables (C++, Java, C-Sharp) are created in `build/examples/meta/` when running
 `make`.
