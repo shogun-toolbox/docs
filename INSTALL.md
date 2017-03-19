@@ -84,12 +84,16 @@ If you are interested in packaging, documenting, or contributing otherwise, plea
 
 ## Docker images <a name="docker"></a>
 You can run Shogun in [our own cloud](cloud.shogun.ml) or set up your own using our
-[Docker images](https://hub.docker.com/r/shogun/shogun-dev/) as:
+[Docker images](https://hub.docker.com/r/shogun/shogun/) as:
 
-    sudo docker pull shogun/shogun
-    sudo docker run -it shogun/shogun bash
+    sudo docker pull shogun/shogun:master
+    sudo docker run -it shogun/shogun:master bash
 
 We offer images for both the latest release and nightly development builds.
+
+For the [developer version](https://hub.docker.com/r/shogun/shogun-dev/), replace `shogun/shogun:master` with `shogun/shogun-dev`.
+
+Check the "details" tab before downloading to check if the latest build was successful (otherwise you might run into errors when running the docker image)."
 
 Sometimes mounting a local folder into the docker image is useful.
 You can do this via passing an additional option
