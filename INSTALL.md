@@ -86,7 +86,7 @@ If you are interested in packaging, documenting, or contributing otherwise, plea
 You can run Shogun in [our own cloud](cloud.shogun.ml) or set up your own using our
 [Docker images](https://hub.docker.com/r/shogun/shogun-dev/) as:
 
-    sudo docker pull shogun/shogun
+    sudo docker pull shogun/shogun-dev
     sudo docker run -it shogun/shogun bash
 
 We offer images for both the latest release and nightly development builds.
