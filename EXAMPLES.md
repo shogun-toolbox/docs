@@ -74,6 +74,8 @@ If you are adding a new topic (like "kernels" or "regression") you will also nee
  * Let the **code** speak for itself. Avoid useless statements that are clear from the code.
     Avoid statements like "we call the `train` method", but rather "we train the model via".
     This way the `.rst` file is also invariant to API changes.
+ * Style: Please put every sentence in a line.
+   This makes the diff easier to read in later changes.
  * All external weblinks are automatically checked and warnings are given if corrupt, but please ensure you do not put in dead links.
  * If you want to add a BibTeX reference, add it to [references.bib](https://github.com/shogun-toolbox/shogun/blob/develop/doc/cookbook/source/references.bib).
     Please do only use properly formated entries, follow the existing formatting.
