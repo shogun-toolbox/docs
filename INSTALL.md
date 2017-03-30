@@ -125,7 +125,7 @@ In case none of the binary packages listed on our website work for your system, 
 The standard GNU/Linux tools and Python are minimal requirements to compile Shogun.
 To compile the interfaces, in addition to [swig](http://www.swig.org/) itself, you will need language specific development packages installed, see [interfaces](#manual-interfaces) below.
 
-There is a larger number of optional requirements.
+There is a larger number of optional requirements.Install dependencies like [ply](https://pypi.python.org/pypi/ply) ,[ctags](https://packagecontrol.io/packages/CTags)  if not found in the output lists of cmake. 
 The output of cmake output lists optional dependencies that were found and not found.
 If a particular Shogun class is unavailable, this is likely due to an unmet dependency.
 See our [docker configuration file](https://github.com/shogun-toolbox/shogun/blob/develop/configs/shogun/Dockerfile) for an example configuration used in our test builds.
