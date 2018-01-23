@@ -1,3 +1,5 @@
+**THIS FILE IS OUTDATED AND ONLY KEPT FOR BACKWARDS COMPATIBILITY.** See the main repository for the latest readme.
+
 # API examples
 
 Shogun comes with automatically generated API examples in all interface languages, see [our website](http://shogun.ml/examples).
