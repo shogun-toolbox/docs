@@ -1,4 +1,4 @@
-**THIS FILE IS OUTDATED AND ONLY KEPT FOR BACKWARDS COMPATIBILITY.** See the main repository for the latest readme.
+NOTE: This repository is deprecated/outdated, and only kept for compatibility of older versions of Shogun. All readmes were moved to the main repository.
 
 # API examples
 

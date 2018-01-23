@@ -1,3 +1,5 @@
+NOTE: This repository is deprecated/outdated, and only kept for compatibility of older versions of Shogun. All readmes were moved to the main repository.
+
 The Shogun Machine learning toolbox offers a wide range of efficient and unified Machine Learning methods.
 
 

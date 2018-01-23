@@ -1,3 +1,5 @@
+NOTE: This repository is deprecated/outdated, and only kept for compatibility of older versions of Shogun. All readmes were moved to the main repository.
+
 # Developing Shogun
 
 This is a very basic list of things how to get started hacking Shogun.
