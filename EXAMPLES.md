@@ -1,4 +1,4 @@
-NOTE: This repository is deprecated/outdated, and only kept for compatibility of older versions of Shogun. All readmes were moved to the main repository.
+NOTE: This repository is deprecated/outdated, and only kept for compatibility of older versions of Shogun. All readmes were moved to the main repository. [See README](https://github.com/shogun-toolbox/shogun)
 
 # API examples
 
